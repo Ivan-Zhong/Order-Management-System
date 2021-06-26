@@ -44,7 +44,7 @@ import Layout from '@/layout'
     // meta: { title: 'Example', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
+        path: 'staff-management',
         name: 'Table',
         component: () => import('@/views/table/index'),
         meta: { title: '人员管理', icon: 'user' }
@@ -57,7 +57,7 @@ import Layout from '@/layout'
     component: Layout,
     children: [
       {
-        path: 'complex-table',
+        path: 'client-management',
         component: () => import('@/views/table/index'),
         name: 'ComplexTable',
         meta: { title: '客户管理', icon: 'nested' }
@@ -232,7 +232,7 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'index',
+        path: 'password-change',
         name: 'Form',
         component: () => import('@/views/form/index'),
         meta: { title: '密码修改', icon: 'password' }

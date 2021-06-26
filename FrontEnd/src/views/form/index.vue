@@ -1,10 +1,16 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="Activity name">
-        <el-input v-model="form.name" />
+      <el-form-item label="原密码" >
+        <el-input v-model="form.oldpw" type="password"/>
       </el-form-item>
-      <el-form-item label="Activity zone">
+      <el-form-item label="新密码" >
+        <el-input v-model="form.newpw" type="password"/>
+      </el-form-item>
+      <el-form-item label="确认新密码" >
+        <el-input v-model="form.validnewpw" type="password"/>
+      </el-form-item>
+      <!-- <el-form-item label="Activity zone">
         <el-select v-model="form.region" placeholder="please select your zone">
           <el-option label="Zone one" value="shanghai" />
           <el-option label="Zone two" value="beijing" />
@@ -38,10 +44,10 @@
       </el-form-item>
       <el-form-item label="Activity form">
         <el-input v-model="form.desc" type="textarea" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">Create</el-button>
-        <el-button @click="onCancel">Cancel</el-button>
+        <el-button type="primary" @click="onSubmit">确认修改</el-button>
+        <el-button @click="onCancel('form')">清空</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -52,26 +58,25 @@ export default {
   data() {
     return {
       form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        oldpw: '',
+        newpw:'',
+        validnewpw: '',
       }
     }
   },
   methods: {
     onSubmit() {
-      this.$message('submit!')
+      this.$message({
+        message: 'submit!',
+        type: 'success'
+      })
     },
-    onCancel() {
+    onCancel(formname) {
       this.$message({
         message: 'cancel!',
         type: 'warning'
-      })
+      }),
+      this.$refs[formname].resetFields()
     }
   }
 }
