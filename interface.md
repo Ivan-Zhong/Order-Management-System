@@ -70,3 +70,29 @@ post
 #### 返回参数
 
 message为"success"或者"failure"。前端接收到success应该提示添加成功，接收到failure应该提示添加失败，失败情况目前只可能是用户名重复了，应给出相应提示。
+
+
+
+
+
+### 查看所有用户
+
+#### URL
+
+/api/person/all
+
+#### 请求方法
+
+get
+
+#### 请求参数
+
+无
+
+#### 返回参数
+
+后端会判断当前用户是否有权限查看所有用户。
+
+message为"success"或者"failure"。前端接收到success表示有权限查看，否则为无权限。
+
+success对应的data是所有用户，failure对应null。
