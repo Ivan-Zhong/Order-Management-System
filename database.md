@@ -30,11 +30,48 @@ create table person(
 
 ## 客户表
 
-
+```sql
+create table client(
+	id int primary key not null auto_increment,
+    name varchar(30),
+    contactname varchar(30),
+    tel varchar(30),
+    address varchar(100)
+);
+```
 
 
 
 ## 订单表
 
 客户和订单应该是一对多的关系。
+
+```sql
+create table order(
+	id int primary key not null auto_increment,
+    clientId int,
+    description varchar(200),
+    length int,
+    width int,
+    height int,
+    number int,
+    material varchar(20),
+    price int,
+    imagePos varchar(20),
+    status varchar(20),
+    foreign key(clientId) references client(id)
+);
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
