@@ -20,7 +20,7 @@ post
 
 ```json
 {
-    username: string,
+    name: string,
     password: string
 }
 ```
