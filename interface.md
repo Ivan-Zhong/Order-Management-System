@@ -96,3 +96,25 @@ get
 message为"success"或者"failure"。前端接收到success表示有权限查看，否则为无权限。
 
 success对应的data是所有用户，failure对应null。
+
+
+
+
+
+### 用户登出
+
+#### URL
+
+/api/person/logout
+
+#### 请求方法
+
+get
+
+#### 请求参数
+
+无
+
+#### 返回参数
+
+message为"success"或者"failure"。前端接收到success表示登出成功，否则为失败。

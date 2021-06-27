@@ -76,4 +76,16 @@ public class PersonController {
         return rv;
     }
 
+    @GetMapping("/logout")
+    public ReturnValue logout(HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        rv.setData(null);
+        if(request.getSession(false) == null)
+            rv.setMessage("failure");
+        else{
+            rv.setMessage("success");
+            request.getSession(false).invalidate();
+        }
+        return rv;
+    }
 }
