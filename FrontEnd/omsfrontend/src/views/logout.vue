@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>logout</h1>
+        <button @click="getPersons">get persons</button>
         <table>
             <tr>
                 <th>name</th> 
@@ -39,7 +40,7 @@ import axios from "axios"
             }
         },
         methods:{
-            getUsername(){
+            getPersons(){
                 axios.get("/api/person/read/all")
                 .then((response) => {
                     if(response.data.message == "success")
@@ -48,8 +49,8 @@ import axios from "axios"
                     }
                 })
             },
-    
         }
+
 
     }
 </script>

@@ -2,7 +2,7 @@
     <div>
         <h1>login</h1>
         <form @submit.prevent="submitLogin">
-            <input type="text" placeholder="username" v-model="username" />
+            <input type="text" placeholder="name" v-model="name" />
             <input type="password" placeholder="password" v-model="password" />
             <button>submit</button>
         </form>
@@ -15,14 +15,14 @@ import axios from "axios";
         name:"login",
         data(){
             return {
-                username: "",
+                name: "",
                 password: ""
             }
         },
         methods:{
             submitLogin(){
                 let fd = new FormData();
-                fd.append("username", this.username);
+                fd.append("name", this.name);
                 fd.append("password", this.password);
                 axios.post("/api/person/login", fd)
                 .then((response) => {
