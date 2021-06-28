@@ -49,7 +49,8 @@ create table client(
 ```sql
 create table order(
 	id int primary key not null auto_increment,
-    clientId int,
+    clientid int,
+    clientname varchar(20),
     description varchar(200),
     length int,
     width int,
@@ -57,9 +58,8 @@ create table order(
     number int,
     material varchar(20),
     price int,
-    imagePos varchar(20),
-    status varchar(20),
-    foreign key(clientId) references client(id)
+    imageposition varchar(20),
+    status varchar(20)
 );
 ```
 

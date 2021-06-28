@@ -240,3 +240,206 @@ get
 #### 返回参数
 
 message为"success"或者"failure"。前端接收到success表示登出成功，否则为失败。
+
+
+
+
+
+
+
+## Client
+
+### 创建新客户
+
+#### URL
+
+/api/client/add
+
+#### 请求方法
+
+post
+
+#### 请求参数
+
+```json
+{
+	name: string, // 比如公司名，应当不重复
+    contactname: string, // 联系人姓名
+    tel: string,
+    address: string
+}
+```
+
+#### 返回参数
+
+message为"success"或者"failure"。前端接收到success表示创建成功，否则为失败（原因目前只可能是name重复）。
+
+
+
+### 查看所有客户
+
+#### URL
+
+/api/client/read/all
+
+#### 请求方法
+
+get
+
+#### 请求参数
+
+无
+
+#### 返回参数
+
+message为"success"或者"failure"。前端接收到success表示有权限查看并且成功，否则失败。
+
+success对应的data是所有客户，failure对应null。
+
+
+
+### 查看某个客户
+
+#### URL
+
+/api/client/read/one/{id}
+
+#### 请求方法
+
+get
+
+#### 请求参数
+
+无
+
+#### 返回参数
+
+message为"success"或者"failure"。前端接收到success表示有权限查看并且成功，否则失败。
+
+success对应的data是该客户的信息，failure对应null。
+
+
+
+### 修改客户信息
+
+#### URL
+
+/api/client/update/{id}
+
+#### 请求方法
+
+post
+
+#### 请求参数
+
+```json
+{
+	name: string, // 比如公司名，应当不重复
+    contactname: string, // 联系人姓名
+    tel: string,
+    address: string
+}
+```
+
+#### 返回参数
+
+message为"success"或者"failure"。前端接收到success表示更新成功，否则为失败（原因目前只可能是name重复）。级联更新订单表的客户名。
+
+
+
+### 删除客户
+
+#### URL
+
+/api/client/delete/{id}
+
+#### 请求方法
+
+get
+
+#### 请求参数
+
+无
+
+#### 返回参数
+
+message为"success"或者"failure"。前端接收到success表示删除成功，否则失败。删除用户会级联删除他的所有订单。
+
+
+
+
+
+## Order
+
+### 创建新订单
+
+#### URL
+
+/api/order/add
+
+#### 请求方法
+
+post
+
+#### 请求参数
+
+```json
+{
+	clientname: string,
+    description: string,
+    length: int,
+    width: int,
+    height: int,
+    number: int,
+    material: string,
+    price: int,
+    image: MultipartFile,
+    status: string
+}
+```
+
+#### 返回参数
+
+message为"success"或者"failure"。前端接收到success表示创建成功，否则为失败。
+
+
+
+### 查看所有订单
+
+#### URL
+
+/api/order/read/all
+
+#### 请求方法
+
+get
+
+#### 请求参数
+
+无
+
+#### 返回参数
+
+message为"success"或者"failure"。前端接收到success表示有权限查看并且成功，否则失败。
+
+success对应的data是所有客户，failure对应null。
+
+imagePos不用显示，clientId不用显示。为每个订单显示下载按钮，链接：/api/order/download/{id}。
+
+
+
+### 修改订单信息
+
+
+
+### 删除订单
+
+
+
+
+
+
+
+\1. 用户的创建，修改，删除，查看（finished）
+\2. 客户的创建，修改，删除，查看
+\3. 订单的创建，修改，删除，查看
