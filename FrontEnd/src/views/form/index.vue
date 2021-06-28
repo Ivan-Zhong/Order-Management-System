@@ -1,14 +1,14 @@
 <template>
   <div class="app-container">
-    <el-form ref="form" :model="form" label-width="120px">
+    <el-form ref="pwForm" :model="pwForm" label-width="120px">
       <el-form-item label="原密码" >
-        <el-input v-model="form.oldpw" type="password"/>
+        <el-input v-model="pwForm.oldpw" type="password"/>
       </el-form-item>
       <el-form-item label="新密码" >
-        <el-input v-model="form.newpw" type="password"/>
+        <el-input v-model="pwForm.newpw" type="password"/>
       </el-form-item>
       <el-form-item label="确认新密码" >
-        <el-input v-model="form.validnewpw" type="password"/>
+        <el-input v-model="pwForm.validnewpw" type="password"/>
       </el-form-item>
       <!-- <el-form-item label="Activity zone">
         <el-select v-model="form.region" placeholder="please select your zone">
@@ -47,7 +47,7 @@
       </el-form-item> -->
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确认修改</el-button>
-        <el-button @click="onCancel('form')">清空</el-button>
+        <el-button @click="onCancel('pwForm')">清空</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -57,7 +57,7 @@
 export default {
   data() {
     return {
-      form: {
+      pwForm: {
         oldpw: '',
         newpw:'',
         validnewpw: '',
@@ -71,12 +71,12 @@ export default {
         type: 'success'
       })
     },
-    onCancel(formname) {
-      this.$message({
-        message: 'cancel!',
-        type: 'warning'
-      }),
-      this.$refs[formname].resetFields()
+    onCancel(formName) {
+      // this.$message({
+      //   message: 'cancel!',
+      //   type: 'warning'
+      // }),
+      this.$refs['pwForm'].resetFields();
     }
   }
 }

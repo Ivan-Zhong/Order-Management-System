@@ -46,7 +46,7 @@ import Layout from '@/layout'
       {
         path: 'staff-management',
         name: 'Table',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/table/staff'),
         meta: { title: '人员管理', icon: 'user' }
       }
     ]
@@ -58,7 +58,7 @@ import Layout from '@/layout'
     children: [
       {
         path: 'client-management',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/table/client'),
         name: 'ComplexTable',
         meta: { title: '客户管理', icon: 'nested' }
       }
