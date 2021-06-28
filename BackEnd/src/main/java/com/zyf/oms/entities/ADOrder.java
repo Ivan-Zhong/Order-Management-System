@@ -10,13 +10,21 @@ public class ADOrder {
     private int clientid;
     private String clientname;
     private String description;
+    @Column(nullable = true)
     private int length;
+    @Column(nullable = true)
     private int width;
+    @Column(nullable = true)
     private int height;
+    @Column(nullable = true)
     private int number;
+    @Column(nullable = true)
     private String material;
+    @Column(nullable = true)
     private int price;
-    private String imageposition;
+    @Column(nullable = true)
+    private String imagename;
+    @Column(nullable = false)
     private String status;
 
     public int getId() {
@@ -99,12 +107,12 @@ public class ADOrder {
         this.price = price;
     }
 
-    public String getImageposition() {
-        return imageposition;
+    public String getImagename() {
+        return imagename;
     }
 
-    public void setImageposition(String imageposition) {
-        this.imageposition = imageposition;
+    public void setImagename(String imagename) {
+        this.imagename = imagename;
     }
 
     public String getStatus() {

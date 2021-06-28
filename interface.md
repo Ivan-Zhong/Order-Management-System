@@ -245,8 +245,6 @@ message为"success"或者"failure"。前端接收到success表示登出成功，
 
 
 
-
-
 ## Client
 
 ### 创建新客户
@@ -371,68 +369,94 @@ message为"success"或者"failure"。前端接收到success表示删除成功，
 
 ## Order
 
-### 创建新订单
+/api/order/create/add
 
-#### URL
+/api/order/create/read/one/{id}
 
-/api/order/add
+/api/order/create/read/all
 
-#### 请求方法
+/api/order/create/update/{id}
+
+/api/order/measure/read/one/{id}
+
+/api/order/measure/read/all
+
+/api/order/measure/update/{id}
+
+/api/order/design/read/one/{id}
+
+/api/order/design/read/all
+
+/api/order/design/update/{id}
+
+/api/order/price/read/one/{id}
+
+/api/order/price/read/all
+
+/api/order/price/update/{id}
+
+/api/order/consider/read/one/{id}
+
+/api/order/consider/read/all
+
+/api/order/consider/update/{id}
+
+/api/order/produce/read/one/{id}
+
+/api/order/produce/read/all
+
+/api/order/produce/update/{id}
+
+/api/order/install/read/one/{id}
+
+/api/order/install/read/all
+
+/api/order/install/update/{id}
+
+/api/order/finish/read/one/{id}
+
+/api/order/finish/read/all
+
+/api/order/finish/update/{id}
+
+/api/order/delete/{id} -- 只有管理员能delete
+
+还有一个图片下载接口：
+
+/api/order/image/download/{imagename}
+
+一个图片展示接口：(用于直接通过img标签来展示在浏览器中)（访问静态资源，其实不算接口）
+
+/images/{imagename}
+
+
+
+### Create
+
+#### add
+
+##### URL
+
+/api/order/create/add
+
+##### 请求方法
 
 post
 
-#### 请求参数
+##### 请求参数
 
 ```json
 {
 	clientname: string,
-    description: string,
-    length: int,
-    width: int,
-    height: int,
-    number: int,
-    material: string,
-    price: int,
-    image: MultipartFile,
-    status: string
+    description: string
 }
 ```
 
-#### 返回参数
+##### 返回参数
 
-message为"success"或者"failure"。前端接收到success表示创建成功，否则为失败。
+message为"success"或者"failure"。前端接收到success表示创建成功，否则为失败（原因是客户不存在，这时应该提示请先创建客户）。
 
-
-
-### 查看所有订单
-
-#### URL
-
-/api/order/read/all
-
-#### 请求方法
-
-get
-
-#### 请求参数
-
-无
-
-#### 返回参数
-
-message为"success"或者"failure"。前端接收到success表示有权限查看并且成功，否则失败。
-
-success对应的data是所有客户，failure对应null。
-
-imagePos不用显示，clientId不用显示。为每个订单显示下载按钮，链接：/api/order/download/{id}。
-
-
-
-### 修改订单信息
-
-
-
-### 删除订单
+后面所有接口除非是没有权限，否则能成功。
 
 
 
@@ -440,6 +464,45 @@ imagePos不用显示，clientId不用显示。为每个订单显示下载按钮�
 
 
 
-\1. 用户的创建，修改，删除，查看（finished）
-\2. 客户的创建，修改，删除，查看
-\3. 订单的创建，修改，删除，查看
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

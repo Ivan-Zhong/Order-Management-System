@@ -25,6 +25,7 @@ create table person(
 |  工厂人员  |  factory  |
 |  安装人员  | installer |
 |  结案人员  | finisher  |
+|  客户人员  | clienter  |
 
 
 
@@ -64,6 +65,19 @@ create table order(
 ```
 
 
+
+status可能的取值（后端维护）：
+
+|        status        |        含义        |
+| :------------------: | :----------------: |
+|       created        |       已创建       |
+|       measured       |       已测量       |
+|       designed       |      设计完毕      |
+|        priced        |       已定价       |
+| accepted or rejected | 客户接受or客户拒绝 |
+|       produced       |      生产完毕      |
+|      installed       |      安装完毕      |
+|       finished       |      订单结束      |
 
 
 
