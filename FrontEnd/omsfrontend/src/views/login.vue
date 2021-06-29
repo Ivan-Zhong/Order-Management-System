@@ -1,9 +1,15 @@
 <template>
     <div>
         <h1>login</h1>
-        <form @submit.prevent="submitLogin">
-            <input type="text" placeholder="name" v-model="name" />
-            <input type="password" placeholder="password" v-model="password" />
+        <form @submit.prevent="submitLogin" class="loginForm">
+            <label for="name">用户名
+            <input name="username" type="text" placeholder="请输入用户名" v-model="name" />
+            </label>
+            <br>
+            <label for="password">密码
+            <input name="password" type="password" placeholder="请输入密码" v-model="password" />
+            </label>
+            <br>
             <button>submit</button>
         </form>
     </div>
@@ -40,6 +46,11 @@ import axios from "axios";
     }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style scoped>
+.loginForm{
+    line-height: 40px;
+}
+.loginForm input{
+    height: 20px;
+}
+</style> 

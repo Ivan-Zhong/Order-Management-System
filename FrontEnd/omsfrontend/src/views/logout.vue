@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>logout</h1>
+        <Sidebar></Sidebar>
         <button @click="getPersons">get persons</button>
         <table>
             <tr>
@@ -31,12 +32,22 @@
 </template>
 
 <script>
+import Sidebar from '../components/sidebar'
 import axios from "axios"
     export default {
         name:"logout",
+        created: function () {
+            axios.get("/api/person/read/all")
+            .then((response) => {
+                if(response.data.message == "success")
+                {
+                    this.persons = response.data.data;
+                }
+            })
+        },
         data(){
             return {
-                persons:[]
+                persons:[],
             }
         },
         methods:{
@@ -49,12 +60,12 @@ import axios from "axios"
                     }
                 })
             },
+        },
+        components:{
+            Sidebar
         }
-
-
     }
 </script>
 
 <style lang="scss" scoped>
-
-</style>
+</style> 
