@@ -7,12 +7,15 @@ export default createStore({
     tel:"",
     email:"",
     password:"",
-    identity:"aadwda"
+    identity:"admin"
   },
   mutations: {
+
   },
   actions: {
+
   },
   modules: {
+    
   }
 })
