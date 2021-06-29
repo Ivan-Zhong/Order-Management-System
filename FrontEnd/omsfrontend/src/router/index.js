@@ -28,25 +28,30 @@ const routes = [
     component: () => import('../views/client.vue')
   },
   {
+    path: '/clientinfo',
+    name: 'clientinfo',
+    component: () => import('../views/clientinfo.vue')
+  },
+  {
     path: '/order',
     name: 'order',
     component: () => import('../views/order.vue')
   },
   {
-    path: '/info',
-    name: 'info',
-    component: () => import('../views/info.vue')
+    path: '/myinfo',
+    name: 'myinfo',
+    component: () => import('../views/myinfo.vue')
+  },
+  {
+    path: '/userinfo',
+    name: 'userinfo',
+    component: () => import('../views/userinfo.vue')
   },
   {
     path: '/logout',
     name: 'logout',
     component: logout
   },
-  {
-    path: '/client',
-    name: 'client',
-    component: () => import('../views/client.vue')
-  }
 ]
 
 const router = createRouter({
