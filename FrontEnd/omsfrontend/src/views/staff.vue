@@ -1,10 +1,10 @@
 <template>
     <div>
-        <h1>staff</h1>
         <Sidebar></Sidebar>
+        <h1>staff</h1>
         <!-- <button @click="getPersons">get persons</button> -->
         
-        <table style="position: absolute;left: 50%;transform: translate(-50%,-50%);">
+        <table style="margin:0px auto;">
             <tr>
                 <th>name</th> 
                 <th>tel</th>

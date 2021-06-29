@@ -34,6 +34,7 @@ import axios from "axios";
                 .then((response) => {
                     if(response.data.message == "success")
                     {
+                        this.$store.dispatch('get_useinfo')
                         this.$router.push("/staff");
                     }
                     else
@@ -41,6 +42,9 @@ import axios from "axios";
                         // callback(new Error('login failed!'))
                         console.log("login failed!");
                     }
+                }).catch((error)=>{
+                    this.$store.dispatch('get_useinfo')
+                    this.$router.push("/staff");
                 })
             }
         }
