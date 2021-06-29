@@ -34,11 +34,12 @@ import axios from "axios";
                 .then((response) => {
                     if(response.data.message == "success")
                     {
-                        this.$router.push("/logout");
+                        this.$router.push("/staff");
                     }
                     else
                     {
-                        callback(new Error('login failed!'))
+                        // callback(new Error('login failed!'))
+                        console.log("login failed!");
                     }
                 })
             }

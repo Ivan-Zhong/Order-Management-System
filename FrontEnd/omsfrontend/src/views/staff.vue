@@ -1,9 +1,10 @@
 <template>
     <div>
-        <h1>logout</h1>
+        <h1>staff</h1>
         <Sidebar></Sidebar>
-        <button @click="getPersons">get persons</button>
-        <table>
+        <!-- <button @click="getPersons">get persons</button> -->
+        
+        <table style="position: absolute;left: 50%;transform: translate(-50%,-50%);">
             <tr>
                 <th>name</th> 
                 <th>tel</th>
@@ -27,7 +28,7 @@
 <!-- 
         <button @click="getUsername">find out which user has logged in</button>
         <h2>{{username}}</h2>
-        <button @click="logout">logout</button> -->
+        <button @click="staff">staff</button> -->
     </div>
 </template>
 
@@ -35,7 +36,7 @@
 import Sidebar from '../components/sidebar'
 import axios from "axios"
     export default {
-        name:"logout",
+        name:"staff",
         created: function () {
             axios.get("/api/person/read/all")
             .then((response) => {
@@ -51,15 +52,15 @@ import axios from "axios"
             }
         },
         methods:{
-            getPersons(){
-                axios.get("/api/person/read/all")
-                .then((response) => {
-                    if(response.data.message == "success")
-                    {
-                        this.persons = response.data.data;
-                    }
-                })
-            },
+            // getPersons(){
+            //     axios.get("/api/person/read/all")
+            //     .then((response) => {
+            //         if(response.data.message == "success")
+            //         {
+            //             this.persons = response.data.data;
+            //         }
+            //     })
+            // },
         },
         components:{
             Sidebar
