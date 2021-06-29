@@ -27,6 +27,7 @@ import axios from "axios";
         },
         methods:{
             submitLogin(){
+                let _this=this;
                 let fd = new FormData();
                 fd.append("name", this.name);
                 fd.append("password", this.password);
@@ -37,10 +38,12 @@ import axios from "axios";
                         this.$router.push("/logout");
                     }
                     else
-                    {
+                    {                        
                         callback(new Error('login failed!'))
                     }
-                })
+                }).catch(function (error) {
+                    _this.$router.push("/logout");
+                });
             }
         }
     }

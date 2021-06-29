@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <h1>logout</h1>
+    <div class="all">
         <Sidebar></Sidebar>
+        <h1>logout</h1>
         <button @click="getPersons">get persons</button>
         <table>
             <tr>
@@ -20,10 +20,6 @@
             </tr>
 
         </table>
-
-
-
-
 <!-- 
         <button @click="getUsername">find out which user has logged in</button>
         <h2>{{username}}</h2>
@@ -68,6 +64,5 @@ import axios from "axios"
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
 </style>
