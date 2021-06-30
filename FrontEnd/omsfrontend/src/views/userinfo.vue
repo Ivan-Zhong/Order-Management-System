@@ -2,7 +2,7 @@
     <div>
         <Sidebar></Sidebar>
         <h1>userinfo</h1>
-        <form @submit.prevent="status==='create'?createUser:editUser">
+        <form @submit.prevent="editUser">
             姓名<input type="text" placeholder="name" v-model="name" />
             <br>
             <br>
@@ -37,7 +37,7 @@ import axios from "axios"
         name:"userinfo",
         data(){
             return {
-                id:"",
+                id:0,
                 name:"",
                 tel:"",
                 email:"",
@@ -47,8 +47,9 @@ import axios from "axios"
             }
         },
         created: function () {
+                console.log("Hello");
                 this.id=this.$route.query.id;
-                axios.get("/api/person/read/others/{id}")
+                axios.get(`/api/person/read/others/${this.id}`)
                 .then((response) => {
                     if(response.data.message == "success")
                     {
@@ -91,7 +92,7 @@ import axios from "axios"
                 fd.append("email", this.email);
                 fd.append("password", this.password);
                 fd.append("identity", this.identity);
-                axios.post("/api/person/update/others/{id}", fd)
+                axios.post(`/api/person/update/others/${this.id}`, fd)
                 .then((response) => {
                     if(response.data.message == "success")
                     {

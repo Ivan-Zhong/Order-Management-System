@@ -23,7 +23,7 @@
                 <td>{{ person.password }}</td>
                 <td>{{ person.identity }}</td>
                 <td>
-                    <button><router-link :to="{path: '/userinfo', query: {id: '{{ person.id }}' }}">编辑</router-link></button>
+                    <button><router-link :to="{path: '/userinfo', query: {id: person.id }}">编辑</router-link></button>
                     <button @click="deleteUser('{{ person.id }}')">删除</button>
                 </td>                
             </tr>
