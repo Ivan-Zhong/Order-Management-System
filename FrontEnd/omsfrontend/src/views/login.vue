@@ -40,7 +40,8 @@ import axios from "axios";
                     else
                     {
                         // callback(new Error('login failed!'))
-                        console.log("login failed!");
+                        this.$router.push("/login");
+                        alert("login failed!");
                     }
                 }).catch((error)=>{
                     this.$store.dispatch('get_useinfo')

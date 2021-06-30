@@ -37,6 +37,7 @@ import axios from "axios"
         name:"userinfo",
         data(){
             return {
+                id:"",
                 name:"",
                 tel:"",
                 email:"",
@@ -46,6 +47,7 @@ import axios from "axios"
             }
         },
         created: function () {
+                this.id=this.$route.query.id;
                 axios.get("/api/person/read/others/{id}")
                 .then((response) => {
                     if(response.data.message == "success")

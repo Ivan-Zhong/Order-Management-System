@@ -35,6 +35,7 @@ import axios from "axios"
         data(){
             return {
                 client:{},
+                id:"",
                 name:"",
                 contactname:"",
                 tel:"",
@@ -43,6 +44,7 @@ import axios from "axios"
             }
         },
         created: function () {
+                this.id=this.$route.query.id;
                 axios.get("/api/client/read/one/{id}")
                 .then((response) => {
                     if(response.data.message == "success")
@@ -67,7 +69,8 @@ import axios from "axios"
                 .then((response) => {
                     if(response.data.message == "success")
                     {
-                        this.$router.push("/staff");
+                        this.$router.push("/client");
+                        alert("添加成功！")
                     }
                     else
                     {
@@ -86,7 +89,8 @@ import axios from "axios"
                 .then((response) => {
                     if(response.data.message == "success")
                     {
-                        this.$router.push("/staff");
+                        this.$router.push("/client");
+                        alert("修改成功！")
                     }
                     else
                     {

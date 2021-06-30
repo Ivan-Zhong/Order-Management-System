@@ -3,7 +3,7 @@
         <Sidebar></Sidebar>
         <h1>staff</h1>
         <!-- <button @click="getPersons">get persons</button> -->
-        <button><router-link to="/userinfo">创建新用户</router-link></button>
+        <button><router-link :to="{path: '/userinfo'}">创建新用户</router-link></button>
         <button @click="logout">注销</button>
         <table style="margin:0px auto;">
             <tr>
@@ -23,8 +23,8 @@
                 <td>{{ person.password }}</td>
                 <td>{{ person.identity }}</td>
                 <td>
-                    <button><router-link to="/userinfo">编辑</router-link></button>
-                    <button @click="deleteUser">删除</button>
+                    <button><router-link :to="{path: '/userinfo', query: {id: '{{ person.id }}' }}">编辑</router-link></button>
+                    <button @click="deleteUser('{{ person.id }}')">删除</button>
                 </td>                
             </tr>
 
@@ -42,11 +42,12 @@ import axios from "axios"
         data(){
             return {
                 persons:[],
+                id:"",
                 name:"",
                 tel:"",
                 email:"",
-                npame:"",
-                name:"",
+                password:"",
+                identity:"",
             }
         },
         created: function () {
@@ -60,7 +61,8 @@ import axios from "axios"
         },
 
         methods:{
-            deleteUser(){
+            deleteUser(id){
+                this.id=id;
                 axios.get("/api/person/delete/{id}")
                 .then((response) => {
                     if(response.data.message == "success")

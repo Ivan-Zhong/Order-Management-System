@@ -15,6 +15,9 @@
             密码<input type="text" placeholder="password" v-model="password" />
             <br>
             <br>
+            身份：&nbsp;&nbsp;{{identity}}
+            <br>
+            <br>
             <button>提交更改</button>
         </form>
 
@@ -34,6 +37,7 @@ import axios from "axios";
                 tel: "",
                 email: "",
                 password: "",
+                identity:""
             }
         },
         created: function () {
@@ -45,6 +49,7 @@ import axios from "axios";
                         this.tel = response.data.data.tel;
                         this.email = response.data.data.email;
                         this.password = response.data.data.password;
+                        this.identity = response.data.data.identity;
                 }
             })
         },
@@ -61,6 +66,10 @@ import axios from "axios";
                     {
                         this.$router.push("/myinfo");
                         alert("修改成功！")
+                    }
+                    else
+                    {
+                        alert("修改失败，用户名重复！")
                     }
                 })
             }
