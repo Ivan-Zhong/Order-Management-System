@@ -111,7 +111,7 @@ public class ClientController {
         // 有权限时，先检查用户是否已存在
         else{
             List<Client> clients = clientRepository.getClientByName(name);
-            if(clients.size() == 0){
+            if(clients.size() == 0 || clients.get(0).getName().equals(name)){
                 // 更新客户表信息
                 clientRepository.updateClient(name, contactname, tel, address, id);
                 // 更新订单表信息

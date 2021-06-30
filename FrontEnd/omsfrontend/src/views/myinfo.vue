@@ -62,7 +62,7 @@ import axios from "axios";
                 fd.append("password", this.password);
                 axios.post("/api/person/update/own", fd)
                 .then((response) => {
-                    if(response.data == "successful")
+                    if(response.data.message == "success")
                     {
                         this.$router.push("/myinfo");
                         alert("修改成功！")

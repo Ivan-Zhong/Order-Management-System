@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import login from '../views/login.vue'
-import logout from '../views/logout.vue'
 import staff from '../views/staff.vue'
 
 const routes = [
