@@ -3,7 +3,7 @@
         <Sidebar></Sidebar>
         <h1>client</h1>
         <!-- <button id="create">创建新客户</button> -->
-        <button><router-link :to="{path: '/clientinfo'}">创建新客户</router-link></button>
+        <button><router-link :to="{path: '/createclient'}">创建新客户</router-link></button>
         <table  style="margin:0px auto;">
             <tr>
                 <th>编号</th>
@@ -20,8 +20,8 @@
                 <td>{{ client.tel }}</td>
                 <td>{{ client.address }}</td>
                 <td>
-                    <button><router-link :to="{path: '/clientinfo', query: {id: '{{ client.id }}' }}">编辑</router-link></button>
-                    <button @click="deleteClient('{{ client.id }}')">删除</button>
+                    <button><router-link :to="{path: '/clientinfo', query: {id: client.id }}">编辑</router-link></button>
+                    <button @click="deleteClient(client.id)">删除</button>
                 </td>
             </tr>
 
@@ -42,7 +42,7 @@ import axios from "axios"
         data(){
             return {
                 clients:[],
-                id:"",
+                id:0,
                 name:"",
                 contactname:"",
                 tel:"",
@@ -108,9 +108,9 @@ import axios from "axios"
             //     })
             // },
 
-            deleteClient(id){
-                this.id=id;
-                axios.get("/api/client/delete/{id}")
+            deleteClient(ids){
+                this.id=ids;
+                axios.get(`/api/client/delete/${this.id}`)
                 .then((response) => {
                     if(response.data.message == "success")
                     {

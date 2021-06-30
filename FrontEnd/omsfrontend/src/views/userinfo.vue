@@ -43,7 +43,6 @@ import axios from "axios"
                 email:"",
                 password:"",
                 identity:"",
-                status: 'create',
             }
         },
         created: function () {
@@ -64,26 +63,26 @@ import axios from "axios"
         },
 
         methods:{
-            createUser(){
-                let fd = new FormData();
-                fd.append("name", this.name);
-                fd.append("tel", this.tel);
-                fd.append("email", this.email);
-                fd.append("password", this.password);
-                fd.append("identity", this.identity);
-                axios.post("/api/person/add", fd)
-                .then((response) => {
-                    if(response.data.message == "success")
-                    {
-                        this.$router.push("/staff");
-                        alert("添加成功！");
-                    }
-                    else
-                    {
-                        alert("添加失败，用户名重复！");
-                    }
-                })
-            },
+            // createUser(){
+            //     let fd = new FormData();
+            //     fd.append("name", this.name);
+            //     fd.append("tel", this.tel);
+            //     fd.append("email", this.email);
+            //     fd.append("password", this.password);
+            //     fd.append("identity", this.identity);
+            //     axios.post("/api/person/add", fd)
+            //     .then((response) => {
+            //         if(response.data.message == "success")
+            //         {
+            //             this.$router.push("/staff");
+            //             alert("添加成功！");
+            //         }
+            //         else
+            //         {
+            //             alert("添加失败，用户名重复！");
+            //         }
+            //     })
+            // },
 
             editUser(){
                 let fd = new FormData();
