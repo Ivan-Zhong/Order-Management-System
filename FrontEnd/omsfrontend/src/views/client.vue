@@ -63,10 +63,12 @@
         <template #default="scope">
         <el-button
           size="mini"
+          icon="el-icon-edit"
           type="primary"
           @click="modifyClient(scope.row.id)" v-if="showmod">编辑</el-button>
         <el-button
           size="mini"
+          icon="el-icon-delete"
           type="danger" 
          @click="deleteClient(scope.row.id)" v-if="showdel">删除</el-button>
         </template>

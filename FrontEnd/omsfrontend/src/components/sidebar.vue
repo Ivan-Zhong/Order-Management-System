@@ -5,7 +5,11 @@
         <br>
         <br>
         <div class="route_item" v-for="route1 in route_list" :key="route1">
-            <router-link :to="route1.router" style="color:white;text-decoration:none">            
+            <router-link :to="route1.router" style="color:white;text-decoration:none"> 
+                <i class="el-icon-user" v-if="route1.name=== '人员管理'"></i>
+                <i class="el-icon-s-custom" v-if="route1.name=== '客户管理'"></i>       
+                <i class="el-icon-s-order" v-if="route1.name=== '订单管理'"></i>       
+                <i class="el-icon-document" v-if="route1.name=== '个人信息'"></i>               
                 {{ route1.name }}
             </router-link> 
         </div>

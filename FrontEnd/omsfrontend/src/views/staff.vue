@@ -5,7 +5,6 @@
         <div style="margin-left:200px;">
         <br>
         <h1>人员管理</h1>
-        <!-- <button @click="getPersons">get persons</button> -->
         <!-- <button><router-link :to="{path: '/createuser'}">创建新用户</router-link></button> -->
         <el-button type="primary" @click="createUser()">创建新用户</el-button>
         <br>
@@ -81,10 +80,12 @@
         <template #default="scope">
         <el-button
           size="mini"
+          icon="el-icon-edit"
           type="primary"
           @click="modifyUser(scope.row.id)">编辑</el-button>
         <el-button
           size="mini"
+          icon="el-icon-delete"
           type="danger" 
          @click="deleteUser(scope.row.id)">删除</el-button>
         </template>
