@@ -3,16 +3,16 @@
         <Sidebar></Sidebar>
         <h1>createclient</h1>
         <form @submit.prevent="createClient">
-            客户名<input type="text" placeholder="name" v-model="name" />
+            客户名：<input type="text" placeholder="name" v-model="name" />
             <br>
             <br>
-            负责人<input type="text" placeholder="contactname" v-model="contactname" />
+            负责人：<input type="text" placeholder="contactname" v-model="contactname" />
             <br>
             <br>
-            联系方式<input type="text" placeholder="tel" v-model="tel" />
+            联系方式：<input type="text" placeholder="tel" v-model="tel" />
             <br>
             <br>
-            地址<input type="text" placeholder="address" v-model="address" />
+            地址：<input type="text" placeholder="address" v-model="address" />
             <br>
             <br>
             <button>submit</button>

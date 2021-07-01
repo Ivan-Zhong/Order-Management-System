@@ -3,19 +3,31 @@
         <Sidebar></Sidebar>
         <h1>createuser</h1>
         <form @submit.prevent="createUser">
-            姓名<input type="text" placeholder="name" v-model="name" />
+            姓名：<input type="text" placeholder="name" v-model="name" />
             <br>
             <br>
-            电话<input type="text" placeholder="tel" v-model="tel" />
+            电话：<input type="text" placeholder="tel" v-model="tel" />
             <br>
             <br>
-            电子邮箱<input type="text" placeholder="email" v-model="email" />
+            电子邮箱：<input type="text" placeholder="email" v-model="email" />
             <br>
             <br>
-            密码<input type="text" placeholder="password" v-model="password" />
+            密码：<input type="password" placeholder="password" v-model="password" />
             <br>
             <br>
-            身份<input type="text" placeholder="identity" v-model="identity" />
+            身份：
+            <select v-model="identity" @change="selectClass($event)">
+                <option value="root">公司管理员</option>
+                <option value="handler">接单人员</option>
+                <option value="measurer">测量人员</option>
+                <option value="designer">设计人员</option>
+                <option value="pricer">报价人员</option>
+                <option value="factory">工厂人员</option>
+                <option value="installer">安装人员</option>
+                <option value="finisher">结案人员</option>
+                <option value="clienter">客户人员</option>
+            </select>
+            <!-- <input type="text" placeholder="identity" v-model="identity" /> -->
             <br>
             <br>
             <button>submit</button>
@@ -83,6 +95,10 @@ import axios from "axios"
                     }
                 })
             },
+
+            selectClass(event){
+             this.identity = event.target.value; 
+             },
 
             // editUser(){
             //     let fd = new FormData();

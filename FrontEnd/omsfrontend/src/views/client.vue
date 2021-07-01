@@ -3,7 +3,7 @@
         <Sidebar></Sidebar>
         <h1>client</h1>
         <!-- <button id="create">创建新客户</button> -->
-        <button><router-link :to="{path: '/createclient'}">创建新客户</router-link></button>
+        <button v-if="showcre"><router-link :to="{path: '/createclient'}">创建新客户</router-link></button>
         <table  style="margin:0px auto;">
             <tr>
                 <th>编号</th>
@@ -11,17 +11,17 @@
                 <th>联系人</th>
                 <th>联系方式</th>
                 <th>地址</th>
-                <th>操作</th>
+                <th v-if="showmod">操作</th>
             </tr>
-            <tr v-for="client in clients" :key="client.id">
-                <td>{{ client.id }}</td>    
+            <tr v-for="(client,index) in clients" :key="client.id">
+                <td>{{ index+1 }}</td>    
                 <td>{{ client.name }}</td>
                 <td>{{ client.contactname }}</td>
                 <td>{{ client.tel }}</td>
                 <td>{{ client.address }}</td>
                 <td>
-                    <button><router-link :to="{path: '/clientinfo', query: {id: client.id }}">编辑</router-link></button>
-                    <button @click="deleteClient(client.id)">删除</button>
+                    <button v-if="showmod"><router-link :to="{path: '/clientinfo', query: {id: client.id }}">编辑</router-link></button>
+                    <button @click="deleteClient(client.id)" v-if="showdel">删除</button>
                 </td>
             </tr>
 
@@ -47,6 +47,10 @@ import axios from "axios"
                 contactname:"",
                 tel:"",
                 address:"",
+                identity:"",
+                showdel:false,
+                showcre:false,
+                showmod:false,
             }
         },
         created: function () {
@@ -55,6 +59,25 @@ import axios from "axios"
                 if(response.data.message == "success")
                 {
                     this.clients = response.data.data;
+                }
+            })
+            axios.get("/api/person/read/own")
+            .then((response) => {
+                if(response.data.message == "success")
+                {
+                        this.identity = response.data.data.identity;
+                        if(this.identity=="root")
+                        {
+                            this.showcre=true;
+                            this.showmod=true;
+                            this.showdel=true;
+                        }
+                        if(this.identity=="handler")
+                        {
+                            this.showcre=true;
+                            this.showmod=true;
+                        }
+                            
                 }
             })
         },
@@ -115,7 +138,14 @@ import axios from "axios"
                     if(response.data.message == "success")
                     {
                         alert("删除成功！");
-                        this.$router.push("/client");
+                        axios.get("/api/client/read/all")
+                        .then((response) => {
+                          if(response.data.message == "success")
+                          {
+                             this.clients = response.data.data;
+                         }
+                        })
+                        this.$router.replace("/client");
                     }
                 })
             },

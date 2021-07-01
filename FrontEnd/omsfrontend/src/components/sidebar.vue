@@ -10,23 +10,31 @@
 </template>
 
 <script>
+import axios from "axios";
 export default ({
     name:"sidebar",
-    data() {
+    data() {    
         return {
-            role : this.$store.state.user.identity,//获得用户类型
+            // role : this.$store.state.user.identity,//获得用户类型
+            role:"",
             route_list:[]//路由的列表
         };
     },
     created: function () {
+        axios.get("/api/person/read/own")
+        .then((response) => {
+            if(response.data.message == "success")
+            {
+                    this.role = response.data.data.identity;
         if(this.role == 'root')
         {
             this.route_list[0] = {name:"人员管理",router:"/staff"};
             this.route_list[1] = {name:"客户管理",router:"/client"};
             this.route_list[2] = {name:"订单管理",router:"/order"};
             this.route_list[3] = {name:"个人信息",router:"/myinfo"};
+
         }
-        else if(this.role == 'handler')
+        else if(this.role == "handler")
         {
             this.route_list[0] = {name:"客户管理",router:"/client"};
             this.route_list[1] = {name:"订单管理",router:"/order"};
@@ -70,6 +78,9 @@ export default ({
             this.route_list[0] = {name:"订单管理",router:"/order"};
             this.route_list[1] = {name:"个人信息",router:"/myinfo"};
         }
+            }
+        })
+        
     },
     })
 </script>

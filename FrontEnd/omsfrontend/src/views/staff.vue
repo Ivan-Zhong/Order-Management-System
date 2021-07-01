@@ -4,7 +4,7 @@
         <h1>staff</h1>
         <!-- <button @click="getPersons">get persons</button> -->
         <button><router-link :to="{path: '/createuser'}">创建新用户</router-link></button>
-        <button @click="logout">注销</button>
+        
         <table style="margin:0px auto;">
             <tr>
                 <th>编号</th> 
@@ -15,8 +15,8 @@
                 <th>身份</th>
                 <th>操作</th>
             </tr>
-            <tr v-for="person in persons" :key="person.id">
-                <td>{{ person.id }}</td>
+            <tr v-for="(person,index) in persons" :key="person.id">
+                <td>{{ index+1 }}</td>
                 <td>{{ person.name }}</td>
                 <td>{{ person.tel }}</td>
                 <td>{{ person.email }}</td>
@@ -68,19 +68,18 @@ import axios from "axios"
                     if(response.data.message == "success")
                     {
                         alert("删除成功！")
-                        this.$router.push("staff");
+                        axios.get("/api/person/read/all")
+                        .then((response) => {
+                        if(response.data.message == "success")
+                        {
+                            this.persons = response.data.data;
+                        }
+                        })
+                        this.$router.replace("/staff");
                     }
                 })
             },
-            logout(){
-                axios.get("/api/person/logout")
-                .then((response) => {
-                if(response.data.message == "success")
-                {
-                    this.$router.push("/");
-                }
-            })
-            },
+
         },
         components:{
             Sidebar

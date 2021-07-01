@@ -17,6 +17,11 @@ const routes = [
   //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   // },
   {
+    path: '/home',
+    name: 'home',
+    component: () => import('../views/home.vue')
+  },
+  {
     path: '/staff',
     name: 'staff',
     component: () => import('../views/staff.vue')
@@ -56,11 +61,16 @@ const routes = [
     name: 'userinfo',
     component: () => import('../views/userinfo.vue')
   },
-  // {
-  //   path: '/logout',
-  //   name: 'logout',
-  //   component: logout
-  // },
+  {
+    path: '/createorder',
+    name: 'createorder',
+    component: () => import('../views/createorder.vue')
+  },
+  {
+    path: '/orderinfo',
+    name: 'orderinfo',
+    component: () => import('../views/orderinfo.vue')
+  },
 ]
 
 const router = createRouter({

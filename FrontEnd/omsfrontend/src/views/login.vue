@@ -35,17 +35,18 @@ import axios from "axios";
                     if(response.data.message == "success")
                     {
                         this.$store.dispatch('get_useinfo')
-                        this.$router.push("/staff");
+                        this.$router.push("/home");
                     }
                     else
-                    {
-                        // callback(new Error('login failed!'))
-                        this.$router.push("/login");
-                        alert("login failed!");
+                    {                        
+                        alert("用户名或密码错误，请重试!");
+                        this.$router.replace("/");
                     }
-                }).catch((error)=>{
-                    this.$store.dispatch('get_useinfo')
-                    this.$router.push("/staff");
+                // })
+                // }).catch((error)=>{
+                //     this.$store.dispatch('get_useinfo')
+                //     this.$router.push("/home");
+                // })
                 })
             }
         }

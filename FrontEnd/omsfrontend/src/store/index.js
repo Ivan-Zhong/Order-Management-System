@@ -4,8 +4,8 @@ import axios from "axios";
 export default createStore({
   state: {
     user:{
-      id:"",
-      name:"",
+      id:0,
+      name:"asfaf",
       tel:"",
       email:"",
       password:"",

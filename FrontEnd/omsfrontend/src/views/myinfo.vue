@@ -2,27 +2,32 @@
     <div>
         <Sidebar></Sidebar>
         <h1>myinfo</h1>
-        <form @submit.prevent="modifyMyInfo">
-            姓名<input type="text" placeholder="name" v-model="name" />
+        <!-- <form @submit.prevent="modifyMyInfo"> -->
+        <form>
+            姓名：<input type="text" placeholder="name" v-model="name" />
             <br>
             <br>
-            联系方式<input type="text" placeholder="tel" v-model="tel" />
+            联系方式：<input type="text" placeholder="tel" v-model="tel" />
             <br>
             <br>
-            电子邮箱<input type="text" placeholder="email" v-model="email" />
+            电子邮箱：<input type="text" placeholder="email" v-model="email" />
             <br>
             <br>
-            密码<input type="text" placeholder="password" v-model="password" />
+            密码：<input type="text" placeholder="password" v-model="password" />
             <br>
             <br>
             身份：&nbsp;&nbsp;{{identity}}
             <br>
             <br>
-            <button>提交更改</button>
+            <input type="button" @click="modifyMyInfo()" value="提交更改">
+            <br>
+            <br>
+            <!-- <button>提交更改</button>&nbsp;&nbsp;&nbsp; -->
         </form>
 
-
-
+<button @click="logout()">注销</button>
+        <!-- <input type="button" @click="logout()" value="注嗯嗯销"> -->
+        
     </div>
 </template>
 
@@ -54,6 +59,15 @@ import axios from "axios";
             })
         },
         methods:{
+            logout(){
+                axios.get("/api/person/logout")
+                .then((response) => {
+                if(response.data.message == "success")
+                {
+                    this.$router.push("/");
+                }
+            })
+            },
             modifyMyInfo(){
                 let fd = new FormData();
                 fd.append("name", this.name);
@@ -64,7 +78,7 @@ import axios from "axios";
                 .then((response) => {
                     if(response.data.message == "success")
                     {
-                        this.$router.push("/myinfo");
+                        this.$router.push("/home");
                         alert("修改成功！")
                     }
                     else
@@ -74,6 +88,7 @@ import axios from "axios";
                 })
             }
         },
+
         components:{
             Sidebar
         }
