@@ -35,6 +35,27 @@
         </form>
         </div>
 
+        <div v-if="designer">
+        <form @submit.prevent="editOrderDesign">
+            材质：<input type="text" placeholder="material" v-model="material" />
+            <br>
+            <br>
+
+        //上传图片待写
+
+            <button>submit</button>
+        </form>
+        </div>
+
+        <div v-if="pricer">
+        <form @submit.prevent="editOrderPrice">
+            报价：<input type="text" placeholder="price" v-model="price" />
+            <br>
+            <br>
+            <button>submit</button>
+        </form>
+        </div>
+
 
 </div>
 
@@ -53,12 +74,17 @@ import axios from "axios"
                 identity:"",
                 handler:false,
                 measurer:false,
+                designer:false,
+                pricer:false,
                 clientname:"",
                 description:"",
-                length:"",
-                width:"",
-                height:"",
-                number:"",
+                length:0,
+                width:0,
+                height:0,
+                number:0,
+                material:"",
+                price:0,
+                //图片变量待写
             }
         },
         created: function () {
@@ -68,6 +94,7 @@ import axios from "axios"
                 {
                         this.identity = response.data.data.identity;
                         this.id=this.$route.query.id;
+                        //root页面待添加，应开放所有信息编辑权限
                         if(this.identity=="handler")
                         {
                             handler=true;
@@ -96,27 +123,26 @@ import axios from "axios"
                         }
                         if(this.identity=="designer")
                         {
-
+                            designer=true;
+                            axios.get(`/api/order/design/read/one/${this.id}`)
+                             .then((response) => {
+                               if(response.data.message == "success")
+                                {
+                                    this.material = response.data.data.material;
+                                    //上传图片待写
+                                }
+                            })
                         }
                         if(this.identity=="pricer")
                         {
-
-                        }
-                        if(this.identity=="clienter")
-                        {
-
-                        }
-                        if(this.identity=="factory")
-                        {
-
-                        }
-                        if(this.identity=="installer")
-                        {
-
-                        }
-                        if(this.identity=="finisher")
-                        {
-
+                            pricer=true;
+                            axios.get(`/api/order/price/read/one/${this.id}`)
+                             .then((response) => {
+                               if(response.data.message == "success")
+                                {
+                                    this.price = response.data.data.price;
+                                }
+                            })
                         }
                             
                 }
@@ -148,6 +174,33 @@ import axios from "axios"
                 fd.append("height", this.height);
                 fd.append("number", this.number);
                 axios.post(`/api/order/measure/update/${this.id}`, fd)
+                .then((response) => {
+                    if(response.data.message == "success")
+                    {
+                        this.$router.push("/order");
+                        alert("修改成功！")
+                    }
+                })
+            },
+
+            editOrderDesign(){
+                let fd = new FormData();
+                fd.append("material", this.material);
+                 //上传图片待写
+                axios.post(`/api/order/design/update/${this.id}`, fd)
+                .then((response) => {
+                    if(response.data.message == "success")
+                    {
+                        this.$router.push("/order");
+                        alert("修改成功！")
+                    }
+                })
+            },
+
+            editOrderPrice(){
+                let fd = new FormData();
+                fd.append("price", this.price);
+                axios.post(`/api/order/price/update/${this.id}`, fd)
                 .then((response) => {
                     if(response.data.message == "success")
                     {

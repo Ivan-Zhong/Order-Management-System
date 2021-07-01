@@ -2,6 +2,7 @@
     <div>
         <Sidebar></Sidebar>
         <h1>clientinfo</h1>
+        
         <form @submit.prevent="editClient">
             客户名：<input type="text" placeholder="name" v-model="name" />
             <br>
