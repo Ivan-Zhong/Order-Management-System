@@ -1,8 +1,10 @@
 <template>
     <div>
         <Sidebar></Sidebar>
-        <h1>order</h1>
-        <button><router-link :to="{path: '/createorder'}" v-if="showcre">创建新订单</router-link></button>
+        <div style="margin-left:200px;">
+        <br>
+        <h1>订单管理</h1>
+        <el-button type="primary" @click="createOrder()" v-if="showcre">创建新订单</el-button>
         
         <table style="margin:0px auto;">
             <tr>
@@ -46,7 +48,7 @@
 
         </table>
 
-
+</div>
     </div>
 </template>
 
@@ -62,11 +64,11 @@ import axios from "axios"
                 showdel:false,
                 showcre:false,
                 showedit:false,
-                // showacc:false,
-                // showrej:false,
-                // showpro:false,
-                // showins:false,
-                // showfin:false,
+                showacc:false,
+                showrej:false,
+                showpro:false,
+                showins:false,
+                showfin:false,
             }
         },
         created: function () {
@@ -186,6 +188,15 @@ import axios from "axios"
         },
 
         methods:{
+            createOrder()
+            {
+                this.$router.push({
+                    path:'/createorder',
+                });
+            },
+
+
+
             deleteOrder(ids){
                 this.id=ids;
                 axios.get(`/api/order/delete/${this.id}`)
@@ -211,7 +222,10 @@ import axios from "axios"
                 .then((response) => {
                     if(response.data.message == "success")
                     {
-                        alert("已接受！");
+                        this.$message({
+                            type: 'success',
+                            message: '已接受!'
+                        });
                         axios.get("/api/order/consider/read/all")
                         .then((response) => {
                           if(response.data.message == "success")
@@ -230,7 +244,10 @@ import axios from "axios"
                 .then((response) => {
                     if(response.data.message == "success")
                     {
-                        alert("已拒绝！");
+                        this.$message({
+                            type: 'success',
+                            message: '已拒绝!'
+                        });
                         axios.get("/api/order/consider/read/all")
                         .then((response) => {
                           if(response.data.message == "success")
@@ -249,7 +266,10 @@ import axios from "axios"
                 .then((response) => {
                     if(response.data.message == "success")
                     {
-                        alert("已确认生产完毕！");
+                        this.$message({
+                            type: 'success',
+                            message: '已确认生产完毕!'
+                        });
                         axios.get("/api/order/produce/read/all")
                         .then((response) => {
                           if(response.data.message == "success")
@@ -269,7 +289,10 @@ import axios from "axios"
                 .then((response) => {
                     if(response.data.message == "success")
                     {
-                        alert("已确认安装完毕！");
+                        this.$message({
+                            type: 'success',
+                            message: '已确认安装完毕!'
+                        });
                         axios.get("/api/order/install/read/all")
                         .then((response) => {
                           if(response.data.message == "success")
@@ -288,7 +311,10 @@ import axios from "axios"
                 .then((response) => {
                     if(response.data.message == "success")
                     {
-                        alert("已结束订单！");
+                        this.$message({
+                            type: 'success',
+                            message: '已结束订单!'
+                        });
                         axios.get("/api/order/finish/read/all")
                         .then((response) => {
                           if(response.data.message == "success")

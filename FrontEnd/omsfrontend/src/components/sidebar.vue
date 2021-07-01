@@ -1,8 +1,11 @@
 <template>
     <div class="sidebar">
-        
+        <br>
+        <span style="color:rgb(191, 203, 217);font-size: 18px;">订单管理系统</span>
+        <br>
+        <br>
         <div class="route_item" v-for="route1 in route_list" :key="route1">
-            <router-link :to="route1.router">            
+            <router-link :to="route1.router" style="color:white;text-decoration:none">            
                 {{ route1.name }}
             </router-link> 
         </div>
@@ -87,14 +90,16 @@ export default ({
 
 <style scoped>
 .sidebar{
-    background-color: beige;
-    width:200px;
-    height:1000px;
+    background-color: #304156;
+    width:180px;
+    height: 100vh;
     display:fixed;
     float: left;
+    position:fixed;
+    
 }
 .route_item{
-    background-color:lemonchiffon;
+    background-color:rgba(212, 211, 209, 0.493);
     margin:10px 5px;
     border: 1px rgb(128, 128, 128) solid;
     padding: 10px 5px;
@@ -102,7 +107,7 @@ export default ({
     transition: 0.5s;
 }
 .route_item:hover{
-    background-color:rgb(255, 253, 238);
+    background-color:rgba(214, 214, 212, 0.87);
     border: 1px black solid;
 
 }
