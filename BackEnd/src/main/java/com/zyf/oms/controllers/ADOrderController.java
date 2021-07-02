@@ -70,14 +70,12 @@ public class ADOrderController {
         return rv;
     }
 
-    @GetMapping("/create/read/one/{id}")
+    @GetMapping("/read/one/{id}")
     public ReturnValue createReadOne(@PathVariable("id") int id,
                                      HttpServletRequest request){
         ReturnValue rv = new ReturnValue();
         HttpSession session = request.getSession(false);
-        if(session == null ||
-                (!(session.getAttribute("identity").equals("root"))
-                        && !(session.getAttribute("identity").equals("handler")))){
+        if(session == null){
             rv.setMessage("failure");
             rv.setData(null);
         }
@@ -131,6 +129,22 @@ public class ADOrderController {
         return rv;
     }
 
-    
+    @GetMapping("/measure/read/all")
+    public ReturnValue measureReadAll(HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!(session.getAttribute("identity").equals("root"))
+                        && !(session.getAttribute("identity").equals("measurer")))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }
+        else{
+            rv.setMessage("success");
+            rv.setData(adorderRepository.findAllByStatus2("created", "measured"));
+        }
+        return rv;
+    }
+
 
 }
