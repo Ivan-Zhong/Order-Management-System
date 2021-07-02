@@ -28,8 +28,6 @@ public class ADOrderController {
     @Autowired
     ClientRepository clientRepository;
 
-    private String folderPath = "D:\\Undergraduate\\Order-Management-System\\BackEnd\\src\\main\\resources\\static\\images\\";
-
     @PostMapping("/create/add")
     public ReturnValue createAdd(@RequestParam("clientname") String clientname,
                                       @RequestParam("title") String title,
@@ -225,7 +223,7 @@ public class ADOrderController {
                 // 接收文件
                 String imagename = new Date().getTime() + designImage.getOriginalFilename();
                 try {
-                    designImage.transferTo(new File(folderPath + imagename));
+                    designImage.transferTo(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\" + imagename));
                 }catch(IOException e){
                     e.printStackTrace();
                 }
@@ -237,7 +235,7 @@ public class ADOrderController {
             else if(adorder.getStatus().equals("designed") && !designImage.isEmpty()){
                 String originalImagename = adorder.getImagename();
                 // 删除原始文件
-                File originalImage = new File(folderPath + originalImagename);
+                File originalImage = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\" + originalImagename);
                 if(originalImage.exists()){
                     originalImage.delete();
                 }
@@ -245,7 +243,7 @@ public class ADOrderController {
                 // 接收文件
                 String imagename = new Date().getTime() + designImage.getOriginalFilename();
                 try {
-                    designImage.transferTo(new File(folderPath + imagename));
+                    designImage.transferTo(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\" + imagename));
                 }catch(IOException e){
                     e.printStackTrace();
                 }
@@ -276,7 +274,7 @@ public class ADOrderController {
         response.setHeader("Content-Transfer-Encoding", "binary");
         try {
             BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
-            FileInputStream fis = new FileInputStream(folderPath+imagename);
+            FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\" + imagename);
             int len;
             byte[] buf = new byte[1024];
             while((len = fis.read(buf)) > 0) {
@@ -398,7 +396,7 @@ public class ADOrderController {
         HttpSession session = request.getSession(false);
         if(session == null ||
                 (!(session.getAttribute("identity").equals("root"))
-                        && !(session.getAttribute("identity").equals("producer")))){
+                        && !(session.getAttribute("identity").equals("factory")))){
             rv.setMessage("failure");
             rv.setData(null);
         }
@@ -416,7 +414,7 @@ public class ADOrderController {
         HttpSession session = request.getSession(false);
         if(session == null ||
                 (!(session.getAttribute("identity").equals("root"))
-                        && !(session.getAttribute("identity").equals("producer")))){
+                        && !(session.getAttribute("identity").equals("factory")))){
             rv.setMessage("failure");
             rv.setData(null);
         }
@@ -541,5 +539,4 @@ public class ADOrderController {
         }
         return rv;
     }
-
 }
