@@ -369,51 +369,37 @@ message为"success"或者"failure"。前端接收到success表示删除成功，
 
 ## Order
 
-/api/order/create/add                           post
+/api/order/read/one/{id}                      get
 
-/api/order/create/read/one/{id}          get
+/api/order/create/add                           post
 
 /api/order/create/read/all                    get
 
 /api/order/create/update/{id}             post
 
-/api/order/measure/read/one/{id}
-
 /api/order/measure/read/all
 
 /api/order/measure/update/{id}
-
-/api/order/design/read/one/{id}
 
 /api/order/design/read/all
 
 /api/order/design/update/{id}
 
-/api/order/price/read/one/{id}
-
 /api/order/price/read/all
 
 /api/order/price/update/{id}
-
-/api/order/consider/read/one/{id}
 
 /api/order/consider/read/all
 
 /api/order/consider/update/{id}
 
-/api/order/produce/read/one/{id}
-
 /api/order/produce/read/all
 
 /api/order/produce/update/{id}
 
-/api/order/install/read/one/{id}
-
 /api/order/install/read/all
 
 /api/order/install/update/{id}
-
-/api/order/finish/read/one/{id}
 
 /api/order/finish/read/all
 
