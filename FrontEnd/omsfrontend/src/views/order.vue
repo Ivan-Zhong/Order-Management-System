@@ -1,7 +1,7 @@
 <template>
   <div>
     <Sidebar></Sidebar>
-    <div style="margin-left: 200px;margin-right: 20px">
+    <div style="margin-left: 200px; margin-right: 10px">
       <br />
       <h1>订单管理</h1>
       <el-button type="primary" @click="createOrder()" v-if="showcre"
@@ -55,7 +55,12 @@
         </tr>
       </table> -->
 
-      <el-table :data="orders" stripe height="605" style="width: 100%">
+      <el-table
+        :data="orders"
+        stripe
+        height="605"
+        style="width: 100%; margin-right: 20px"
+      >
         <el-table-column type="expand">
           <template #default="scope">
             <el-form label-position="left" inline class="demo-table-expand">
@@ -63,8 +68,28 @@
                 <span>{{ scope.row.description }}</span>
               </el-form-item>
               <br />
+              <br />
+              <br />
               <el-form-item label="样板图片">
-                <span>{{ scope.row.description }}</span>
+                <span>
+                  <img
+                    :src="'/images/' +  scope.row.imagename "
+                    style="height: 500px"
+                  />
+                  <br />
+                  <el-button type="primary"
+                    ><a
+                      :href="'/api/order/image/download/' +scope.row.imagename"
+                      style="
+                        font-weight: normal;
+                        color: white;
+                        text-decoration: none;
+                      "
+                      >下载图片</a
+                    ></el-button
+                  >
+                  <br />
+                </span>
               </el-form-item>
             </el-form>
           </template>
@@ -181,7 +206,7 @@
                   @click="AcceptOrder(scope.row.id)"
                   >接受</el-button
                 >
-<br><br>
+                <br /><br />
                 <el-button
                   size="mini"
                   icon="el-icon-close"
@@ -191,7 +216,7 @@
                 >
               </div>
               <el-button
-                size="mini" 
+                size="mini"
                 icon="el-icon-check"
                 type="success"
                 @click="ProduceOrder(scope.row.id)"
@@ -247,6 +272,7 @@ export default {
       ismeasurer: false,
       isdesigner: false,
       ispricer: false,
+      imagename: "",
     };
   },
   created: function () {
@@ -344,6 +370,32 @@ export default {
   },
 
   methods: {
+    // getImage(ids) {
+    //   thi.id = ids;
+    //   axios.get(`/api/order/read/one/${this.id}`).then((response) => {
+    //     if (response.data.message == "success") {
+    //       this.imagename = response.data.data.imagename;
+    //     }
+    //   });
+    // },
+
+        ImageDownload() {
+      axios
+      .request({
+    url:`/api/order/image/download/${this.imagename}`,
+    method: 'get',
+    responseType:'blob', // 注意这里！！！
+  })
+        // .get(`/api/order/image/download/${this.imagename}`)
+        .then((response) => {
+            console.log("hello")
+            this.$message({
+              type: "success",
+              message: "图片下载成功!",
+            });
+        });
+    },
+
     createOrder() {
       this.$router.push({
         path: "/createorder",

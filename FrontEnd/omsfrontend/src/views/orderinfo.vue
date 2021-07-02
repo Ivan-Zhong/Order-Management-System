@@ -18,12 +18,16 @@
             :label="client.name"
           />
         </el-select>
-      <br />
-      <br />
-      订单主题：<el-input v-model="title" placeholder="title" style="width:20%"></el-input>
-      <br>
-      <br>
-      <br />
+        <br />
+        <br />
+        订单主题：<el-input
+          v-model="title"
+          placeholder="title"
+          style="width: 20%"
+        ></el-input>
+        <br />
+        <br />
+        <br />
         订单描述<br /><br />
         <el-input
           type="textarea"
@@ -41,16 +45,32 @@
 
     <div v-if="ismeasurer">
       <form>
-        长度：<el-input v-model="length" placeholder="length" style="width:20%"></el-input>
+        长度：<el-input
+          v-model="length"
+          placeholder="length"
+          style="width: 20%"
+        ></el-input>
         <br />
         <br />
-        宽度：<el-input v-model="width" placeholder="width" style="width:20%"></el-input>
+        宽度：<el-input
+          v-model="width"
+          placeholder="width"
+          style="width: 20%"
+        ></el-input>
         <br />
         <br />
-        高度：<el-input v-model="height" placeholder="height" style="width:20%"></el-input>
+        高度：<el-input
+          v-model="height"
+          placeholder="height"
+          style="width: 20%"
+        ></el-input>
         <br />
         <br />
-        数量：<el-input v-model="number" placeholder="number" style="width:20%"></el-input>
+        数量：<el-input
+          v-model="number"
+          placeholder="number"
+          style="width: 20%"
+        ></el-input>
         <br />
         <br />
         <el-button type="primary" @click="editOrderMeasure()">提交</el-button>
@@ -59,18 +79,36 @@
 
     <div v-if="isdesigner">
       <form>
-        材质：<el-input v-model="material" placeholder="material" style="width:20%"></el-input>
+        材质：<el-input
+          v-model="material"
+          placeholder="material"
+          style="width: 20%"
+        ></el-input>
         <br />
         <br />
-
 
         样板图片：
         <br />
         <br />
-        <img :src="'/images/' + this.imagename">
-        <br>
-
-        <input type="file" ref="fileId" @change="getFile" /><br />
+        <img :src="'/images/' + this.imagename" style="height:500px">
+        <br />
+        <br />
+        <el-button type="primary"><a :href="'/api/order/image/download/' + imagename" style="font-weight:normal;color:white;text-decoration:none;">下载图片</a></el-button>
+<br />
+<br />
+<br />
+<!-- <el-button type="primary" @click="dialogVisible = true">修改图片</el-button> -->
+修改图片：
+        <input type="file" ref="fileId" @change="getFile" style=""/><br />
+<!-- <el-upload
+  class="upload-demo"
+  ref="fileId"
+  action
+  :http-request="getFile"
+  >
+  <el-button size="small" type="primary">点击上传</el-button>
+  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+</el-upload> -->
 
         <br />
         <br />
@@ -82,11 +120,29 @@
 
     <div v-if="ispricer">
       <form>
-        报价：<el-input v-model="price" placeholder="price" style="width:20%"></el-input>
+        报价：<el-input
+          v-model="price"
+          placeholder="price"
+          style="width: 20%"
+        ></el-input>
         <br />
         <br />
         <el-button type="primary" @click="editOrderPrice()">提交</el-button>
       </form>
+
+<el-dialog
+  title="rr"
+  :visible.sync="dialogVisible"
+  width="30%"  
+  :append-to-body="true" 
+  >
+  <span>asdaf<br /></span>
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+  </span>
+</el-dialog>
+
     </div>
   </div>
 </template>
@@ -104,7 +160,7 @@ export default {
       isdesigner: false,
       ispricer: false,
       clientname: "",
-      title:"",
+      title: "",
       description: "",
       length: 0,
       width: 0,
@@ -113,7 +169,8 @@ export default {
       material: "",
       price: 0,
       xlsxFile: "",
-      imagename:"",
+      imagename: "",
+      dialogVisible: false,
       //图片变量待写
     };
   },
@@ -123,42 +180,36 @@ export default {
         this.identity = response.data.data.identity;
         this.id = this.$route.query.id;
         //root页面待添加，应开放所有信息编辑权限
-        if ((this.identity == "handler")) {
+        if (this.identity == "handler") {
           this.ishandler = true;
-          axios
-            .get(`/api/order/read/one/${this.id}`)
-            .then((response) => {
-              if (response.data.message == "success") {
-                this.clientname = response.data.data.clientname;
-                this.title = response.data.data.title;
-                this.description = response.data.data.description;
-              }
-            });
+          axios.get(`/api/order/read/one/${this.id}`).then((response) => {
+            if (response.data.message == "success") {
+              this.clientname = response.data.data.clientname;
+              this.title = response.data.data.title;
+              this.description = response.data.data.description;
+            }
+          });
         }
         if (this.identity == "measurer") {
           this.ismeasurer = true;
-          axios
-            .get(`/api/order/read/one/${this.id}`)
-            .then((response) => {
-              if (response.data.message == "success") {
-                this.length = response.data.data.length;
-                this.width = response.data.data.width;
-                this.height = response.data.data.height;
-                this.number = response.data.data.number;
-              }
-            });
+          axios.get(`/api/order/read/one/${this.id}`).then((response) => {
+            if (response.data.message == "success") {
+              this.length = response.data.data.length;
+              this.width = response.data.data.width;
+              this.height = response.data.data.height;
+              this.number = response.data.data.number;
+            }
+          });
         }
         if (this.identity == "designer") {
           this.isdesigner = true;
-          axios
-            .get(`/api/order/read/one/${this.id}`)
-            .then((response) => {
-              if (response.data.message == "success") {
-                this.material = response.data.data.material;
-                this.imagename = response.data.data.imagename;
-                //上传图片待写
-              }
-            });
+          axios.get(`/api/order/read/one/${this.id}`).then((response) => {
+            if (response.data.message == "success") {
+              this.material = response.data.data.material;
+              this.imagename = response.data.data.imagename;
+              //上传图片待写
+            }
+          });
         }
         if (this.identity == "pricer") {
           this.ispricer = true;
@@ -175,6 +226,23 @@ export default {
   methods: {
     selectClass(event) {
       this.clientname = event.target.value;
+    },
+
+    ImageDownload() {
+      axios
+      .request({
+    url:`/api/order/image/download/${this.imagename}`,
+    method: 'get',
+    responseType:'blob', // 注意这里！！！
+  })
+        // .get(`/api/order/image/download/${this.imagename}`)
+        .then((response) => {
+            console.log("hello")
+            this.$message({
+              type: "success",
+              message: "图片下载成功!",
+            });
+        });
     },
 
     editOrderCreate() {
@@ -209,12 +277,13 @@ export default {
               message: "修改成功!",
             });
           }
-        }).catch(() => {
-          this.$message({
-            type: 'error',
-            message: '输入的数据格式错误，请重试！'
-          });          
         })
+        .catch(() => {
+          this.$message({
+            type: "error",
+            message: "输入的数据格式错误，请重试！",
+          });
+        });
     },
 
     getFile() {
@@ -224,10 +293,10 @@ export default {
     },
 
     editOrderDesign() {
-                    if (this.xlsxFile == "") {
-        this.$message.error('请先添加文件');
-        return;
-      }
+      // if (this.xlsxFile == "") {
+      //   this.$message.error("请先添加文件");
+      //   return;
+      // }
       let fd = new FormData();
       fd.append("material", this.material);
       fd.append("image", this.xlsxFile);
@@ -264,4 +333,6 @@ export default {
 </script>
 
 <style>
+
+
 </style> 
