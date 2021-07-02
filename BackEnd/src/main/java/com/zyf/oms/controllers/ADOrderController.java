@@ -87,7 +87,7 @@ public class ADOrderController {
     }
 
     @PostMapping("/create/update/{id}")
-    public ReturnValue updateOne(@PathVariable("id") int id,
+    public ReturnValue createUpdateOne(@PathVariable("id") int id,
                                  @RequestParam("clientname") String clientname,
                                  @RequestParam("title") String title,
                                  @RequestParam("description") String description,
@@ -146,5 +146,34 @@ public class ADOrderController {
         return rv;
     }
 
+    @PostMapping("/measure/update/{id}")
+    public ReturnValue measureUpdateOne(@PathVariable("id") int id,
+                                 @RequestParam("length") int length,
+                                 @RequestParam("width") int width,
+                                 @RequestParam("height") int height,
+                                 @RequestParam("number") int number,
+                                 HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!(session.getAttribute("identity").equals("root"))
+                        && !(session.getAttribute("identity").equals("measurer")))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }
+        else{
+            // 获得这个id的订单
+            ADOrder adorder = adorderRepository.findById(id).get();
+            adorder.setHeight(height);
+            adorder.setLength(length);
+            adorder.setNumber(number);
+            adorder.setWidth(width);
+            adorder.setStatus("measured");
+            adorderRepository.save(adorder);
+            rv.setMessage("success");
+            rv.setData(null);
+        }
+        return rv;
+    }
 
 }
