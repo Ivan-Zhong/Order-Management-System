@@ -2,6 +2,7 @@ package com.zyf.oms.controllers;
 
 import com.zyf.oms.entities.ADOrder;
 import com.zyf.oms.entities.ReturnValue;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +18,7 @@ import java.util.Date;
 @RestController
 @RequestMapping("/api/test")
 public class testController {
-    private String folderPath = "./src/main/resources/static/images/";
+    private String folderPath = "src\\main\\resources\\static\\images\\";
 
     @GetMapping("/helloOMS")
     public String helloOMS(){
@@ -26,9 +27,7 @@ public class testController {
 
     @GetMapping("/testCreateFile")
     public void testCreateFile(){
-        //File file = new File(folderPath);
-        File file = new File(folderPath + "test");
-        file.mkdirs();
+        System.out.println(System.getProperty("user.dir") + "/static/images/upload/");
     }
 
     @GetMapping("/image/download/{fileName}")
@@ -66,9 +65,8 @@ public class testController {
     @PostMapping("/testFile")
     public ReturnValue designUpdateOne(@RequestParam("image") MultipartFile designImage) {
         ReturnValue rv = new ReturnValue();
-        System.out.println(designImage.isEmpty());
         try {
-            designImage.transferTo(new File("D:\\Undergraduate\\Order-Management-System\\BackEnd\\src\\main\\resources\\static\\images\\" + new Date().getTime() + designImage.getOriginalFilename()));
+            designImage.transferTo(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\" + new Date().getTime() + designImage.getOriginalFilename()));
         } catch (IOException e) {
             e.printStackTrace();
         }
