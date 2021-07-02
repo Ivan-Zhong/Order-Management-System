@@ -198,8 +198,7 @@ root用户：
 
 ### 项目结构
 
-
-
+![image](https://user-images.githubusercontent.com/37100888/124292312-03293700-db88-11eb-801b-19987a2ce4c0.png)
 
 
 ## 数据库模块：
@@ -216,7 +215,6 @@ root用户：
 
 3. 订单表：
 - ![image](https://user-images.githubusercontent.com/74498528/124269214-2f838a00-db6d-11eb-99ab-9a7999625c16.png)
-
 
 ## 心得体会：
 
