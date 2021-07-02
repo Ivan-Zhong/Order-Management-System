@@ -87,8 +87,7 @@ export default {
   name: "orderinfo",
   data() {
     return {
-      id:0,
-      status: "",
+      identity: "",
       handler: false,
       measurer: false,
       designer: false,
@@ -106,12 +105,12 @@ export default {
     };
   },
   created: function () {
-    axios.get(`/api/client/read/one/${this.id}`).then((response) => {    //接口待修改
+    axios.get("/api/person/read/own").then((response) => {
       if (response.data.message == "success") {
-        this.status = response.data.data.status;
+        this.identity = response.data.data.identity;
         this.id = this.$route.query.id;
         //root页面待添加，应开放所有信息编辑权限
-        if (this.status == "handler") {
+        if (this.identity == "handler") {
           handler = true;
           axios
             .get(`/api/order/create/read/one/${this.id}`)
