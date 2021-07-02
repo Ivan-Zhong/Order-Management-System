@@ -211,13 +211,13 @@ root用户：
 ### 数据库的表：
 
 1. 人员表：
-![image](https://user-images.githubusercontent.com/74498528/124269174-22ff3180-db6d-11eb-8c90-f3c873a26e1c.png)
+- ![image](https://user-images.githubusercontent.com/74498528/124269174-22ff3180-db6d-11eb-8c90-f3c873a26e1c.png)
 
 2. 客户表：
-![image](https://user-images.githubusercontent.com/74498528/124269197-298da900-db6d-11eb-9591-c939be986ce4.png)
+- ![image](https://user-images.githubusercontent.com/74498528/124269197-298da900-db6d-11eb-9591-c939be986ce4.png)
 
 3. 订单表：
-![image](https://user-images.githubusercontent.com/74498528/124269214-2f838a00-db6d-11eb-99ab-9a7999625c16.png)
+- ![image](https://user-images.githubusercontent.com/74498528/124269214-2f838a00-db6d-11eb-99ab-9a7999625c16.png)
 
 
 ## 心得体会：
