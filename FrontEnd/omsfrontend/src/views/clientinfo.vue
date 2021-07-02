@@ -1,21 +1,36 @@
 <template>
     <div>
         <Sidebar></Sidebar>
-        <h1>clientinfo</h1>
-        <form @submit.prevent="editClient">
-            客户名<input type="text" placeholder="name" v-model="name" />
+        <br>
+        <h1>客户信息</h1>
+        
+        <form>
+            <!-- 客户名：<input type="text" placeholder="name" v-model="name" />
             <br>
             <br>
-            负责人<input type="text" placeholder="contactname" v-model="contactname" />
+            负责人：<input type="text" placeholder="contactname" v-model="contactname" />
             <br>
             <br>
-            联系方式<input type="text" placeholder="tel" v-model="tel" />
+            联系方式：<input type="text" placeholder="tel" v-model="tel" />
             <br>
             <br>
-            地址<input type="text" placeholder="address" v-model="address" />
+            地址：<input type="text" placeholder="address" v-model="address" />
             <br>
             <br>
-            <button>submit</button>
+            <button>submit</button> -->
+            客户名：<el-input v-model="name" placeholder="name" style="width:20%"></el-input>
+            <br>
+            <br>
+            负责人：<el-input v-model="contactname" placeholder="contactname" style="width:20%"></el-input>
+            <br>
+            <br>
+            电话：<el-input v-model="tel" placeholder="tel" style="width:20%"></el-input>
+            <br>
+            <br>
+            地址：<el-input v-model="address" placeholder="address" style="width:20%"></el-input>
+            <br>
+            <br>
+            <el-button type="primary" @click="editClient()">提交更改</el-button>
         </form>
 
 
@@ -88,11 +103,19 @@ import axios from "axios"
                     if(response.data.message == "success")
                     {
                         this.$router.push("/client");
-                        alert("修改成功！")
+                        // alert("修改成功！")
+                        this.$message({
+                            type: 'success',
+                            message: '修改成功!'
+                        });
                     }
                     else
                     {
-                        alert("修改失败，客户名重复！");
+                        this.$message({
+                            type: 'error',
+                            message: '修改失败，客户名重复！'
+                        });
+                        //alert("修改失败，客户名重复！");
                     }
                 })
             },

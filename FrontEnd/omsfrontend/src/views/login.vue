@@ -1,16 +1,19 @@
 <template>
     <div>
-        <h1>login</h1>
-        <form @submit.prevent="submitLogin" class="loginForm">
-            <label for="name">用户名
-            <input name="username" type="text" placeholder="请输入用户名" v-model="name" />
-            </label>
+        <br>
+        <h1>用户登录</h1>
+        <form>
+
+            用户名：
+                <el-input v-model="name" placeholder="name" style="width:20%"></el-input>
+            <!-- <input name="username" type="text" placeholder="请输入用户名" v-model="name" /> -->
             <br>
-            <label for="password">密码
-            <input name="password" type="password" placeholder="请输入密码" v-model="password" />
-            </label>
             <br>
-            <button>submit</button>
+            密码：
+                <el-input v-model="password" placeholder="password" style="width:20%" show-password></el-input>
+            <br>
+            <br>
+            <el-button type="primary" @click="submitLogin()">登录</el-button>
         </form>
     </div>
 </template>
@@ -35,17 +38,25 @@ import axios from "axios";
                     if(response.data.message == "success")
                     {
                         this.$store.dispatch('get_useinfo')
-                        this.$router.push("/staff");
+                        this.$router.push("/home");
+                        this.$message({
+                            type: 'success',
+                            message: '登录成功!'
+                        });
                     }
                     else
-                    {
-                        // callback(new Error('login failed!'))
-                        this.$router.push("/login");
-                        alert("login failed!");
+                    {                        
+                        this.$message({
+                            type: 'error',
+                            message: '用户名或密码错误，请重试！'
+                        });
+                        this.$router.replace("/");
                     }
-                }).catch((error)=>{
-                    this.$store.dispatch('get_useinfo')
-                    this.$router.push("/staff");
+                // })
+                // }).catch((error)=>{
+                //     this.$store.dispatch('get_useinfo')
+                //     this.$router.push("/home");
+                // })
                 })
             }
         }

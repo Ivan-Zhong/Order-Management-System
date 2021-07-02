@@ -1,24 +1,36 @@
 <template>
     <div>
         <Sidebar></Sidebar>
-        <h1>userinfo</h1>
-        <form @submit.prevent="editUser">
-            姓名<input type="text" placeholder="name" v-model="name" />
+        <br>
+        <h1>用户信息</h1>
+        <form>
+            姓名：<el-input v-model="name" placeholder="name" style="width:20%"></el-input>
             <br>
             <br>
-            电话<input type="text" placeholder="tel" v-model="tel" />
+            电话：<el-input v-model="tel" placeholder="tel" style="width:20%"></el-input>
             <br>
             <br>
-            电子邮箱<input type="text" placeholder="email" v-model="email" />
+            电子邮箱：<el-input v-model="email" placeholder="email" style="width:20%"></el-input>
             <br>
             <br>
-            密码<input type="text" placeholder="password" v-model="password" />
+            密码：<el-input v-model="password" placeholder="password" style="width:20%" show-password></el-input>
             <br>
             <br>
-            身份<input type="text" placeholder="identity" v-model="identity" />
+            身份：
+        <el-select v-model="identity" placeholder="请选择用户身份" @change="selectClass($event)">
+          <el-option label="公司管理员" value="root" />
+          <el-option label="接单人员" value="handler" />
+          <el-option label="测量人员" value="measurer" />
+          <el-option label="设计人员" value="designer" />
+          <el-option label="报价人员" value="pricer" />
+          <el-option label="工厂人员" value="factory" />
+          <el-option label="安装人员" value="installer" />
+          <el-option label="结案人员" value="finisher" />
+          <el-option label="客户人员" value="clienter" />
+        </el-select>
             <br>
             <br>
-            <button>submit</button>
+            <el-button type="primary" @click="editUser()">提交修改</el-button>
         </form>
 
 
@@ -83,6 +95,9 @@ import axios from "axios"
             //         }
             //     })
             // },
+            selectClass(event){
+             this.identity = event.target.value; 
+             },
 
             editUser(){
                 let fd = new FormData();
@@ -96,11 +111,17 @@ import axios from "axios"
                     if(response.data.message == "success")
                     {
                         this.$router.push("/staff");
-                        alert("添加成功！");
+                        this.$message({
+                            type: 'success',
+                            message: '修改成功!'
+                        });
                     }
                     else
                     {
-                        alert("修改失败，用户名重复！");
+                        this.$message({
+                            type: 'error',
+                            message: '修改失败，用户名重复！'
+                        });
                     }
                 })
             },
