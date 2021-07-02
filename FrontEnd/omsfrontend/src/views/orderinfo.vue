@@ -3,7 +3,7 @@
     <Sidebar></Sidebar>
     <br />
     <h1>订单信息</h1>
-    <div v-if="handler">
+    <div v-if="ishandler">
       <form>
         客户名：
         <el-select
@@ -39,7 +39,7 @@
       </form>
     </div>
 
-    <div v-if="measurer">
+    <div v-if="ismeasurer">
       <form>
         长度：<el-input v-model="length" placeholder="length" style="width:20%"></el-input>
         <br />
@@ -57,19 +57,30 @@
       </form>
     </div>
 
-    <div v-if="designer">
+    <div v-if="isdesigner">
       <form>
         材质：<el-input v-model="material" placeholder="material" style="width:20%"></el-input>
         <br />
         <br />
 
-        //上传图片待写
+
+        样板图片：
+        <br />
+        <br />
+        <img :src="'/images/' + this.imagename">
+        <br>
+
+        <input type="file" ref="fileId" @change="getFile" /><br />
+
+        <br />
+        <br />
+        <br />
 
         <el-button type="primary" @click="editOrderDesign()">提交</el-button>
       </form>
     </div>
 
-    <div v-if="pricer">
+    <div v-if="ispricer">
       <form>
         报价：<el-input v-model="price" placeholder="price" style="width:20%"></el-input>
         <br />
@@ -88,10 +99,10 @@ export default {
   data() {
     return {
       identity: "",
-      handler: false,
-      measurer: false,
-      designer: false,
-      pricer: false,
+      ishandler: false,
+      ismeasurer: false,
+      isdesigner: false,
+      ispricer: false,
       clientname: "",
       title:"",
       description: "",
@@ -101,6 +112,8 @@ export default {
       number: 0,
       material: "",
       price: 0,
+      xlsxFile: "",
+      imagename:"",
       //图片变量待写
     };
   },
@@ -110,21 +123,22 @@ export default {
         this.identity = response.data.data.identity;
         this.id = this.$route.query.id;
         //root页面待添加，应开放所有信息编辑权限
-        if (this.identity == "handler") {
-          handler = true;
+        if ((this.identity == "handler")) {
+          this.ishandler = true;
           axios
-            .get(`/api/order/create/read/one/${this.id}`)
+            .get(`/api/order/read/one/${this.id}`)
             .then((response) => {
               if (response.data.message == "success") {
                 this.clientname = response.data.data.clientname;
+                this.title = response.data.data.title;
                 this.description = response.data.data.description;
               }
             });
         }
         if (this.identity == "measurer") {
-          measurer = true;
+          this.ismeasurer = true;
           axios
-            .get(`/api/order/measure/read/one/${this.id}`)
+            .get(`/api/order/read/one/${this.id}`)
             .then((response) => {
               if (response.data.message == "success") {
                 this.length = response.data.data.length;
@@ -135,19 +149,20 @@ export default {
             });
         }
         if (this.identity == "designer") {
-          designer = true;
+          this.isdesigner = true;
           axios
-            .get(`/api/order/design/read/one/${this.id}`)
+            .get(`/api/order/read/one/${this.id}`)
             .then((response) => {
               if (response.data.message == "success") {
                 this.material = response.data.data.material;
+                this.imagename = response.data.data.imagename;
                 //上传图片待写
               }
             });
         }
         if (this.identity == "pricer") {
-          pricer = true;
-          axios.get(`/api/order/price/read/one/${this.id}`).then((response) => {
+          this.ispricer = true;
+          axios.get(`/api/order/read/one/${this.id}`).then((response) => {
             if (response.data.message == "success") {
               this.price = response.data.data.price;
             }
@@ -165,6 +180,7 @@ export default {
     editOrderCreate() {
       let fd = new FormData();
       fd.append("clientname", this.clientname);
+      fd.append("title", this.title);
       fd.append("description", this.description);
       axios.post(`/api/order/create/update/${this.id}`, fd).then((response) => {
         if (response.data.message == "success") {
@@ -193,12 +209,28 @@ export default {
               message: "修改成功!",
             });
           }
-        });
+        }).catch(() => {
+          this.$message({
+            type: 'error',
+            message: '输入的数据格式错误，请重试！'
+          });          
+        })
+    },
+
+    getFile() {
+      //获取file内容
+      let files = this.$refs.fileId.files[0];
+      this.xlsxFile = files;
     },
 
     editOrderDesign() {
+                    if (this.xlsxFile == "") {
+        this.$message.error('请先添加文件');
+        return;
+      }
       let fd = new FormData();
       fd.append("material", this.material);
+      fd.append("image", this.xlsxFile);
       //上传图片待写
       axios.post(`/api/order/design/update/${this.id}`, fd).then((response) => {
         if (response.data.message == "success") {

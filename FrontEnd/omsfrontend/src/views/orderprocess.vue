@@ -2,55 +2,36 @@
   <div>
     <Sidebar></Sidebar>
     <br />
-    <h1>订单信息</h1>
-    <div v-if="handler">
-      <form>
-        客户名：
-        <el-select
-          v-model="clientname"
-          placeholder="请选择客户"
-          @change="selectClass($event)"
-        >
-          <el-option
-            v-for="client in clients"
-            :key="client.id"
-            :value="client.name"
-            :label="client.name"
-          />
-        </el-select>
-      <br />
-      <br />
-      订单主题：<el-input v-model="title" placeholder="title" style="width:20%"></el-input>
-      <br>
-      <br>
-      <br />
-        订单描述<br /><br />
-        <el-input
-          type="textarea"
-          :rows="4"
-          style="width: 30%"
-          placeholder="请输入订单描述"
-          v-model="description"
-        >
-        </el-input>
-        <br />
-        <br />
-        <el-button type="primary" @click="editOrderCreate()">提交</el-button>
-      </form>
-    </div>
-
+    <h1>订单处理</h1>
+    <br /><br />
     <div v-if="measurer">
       <form>
-        长度：<el-input v-model="length" placeholder="length" style="width:20%"></el-input>
+        长度：<el-input
+          v-model="length"
+          placeholder="length"
+          style="width: 20%"
+        ></el-input>
         <br />
         <br />
-        宽度：<el-input v-model="width" placeholder="width" style="width:20%"></el-input>
+        宽度：<el-input
+          v-model="width"
+          placeholder="width"
+          style="width: 20%"
+        ></el-input>
         <br />
         <br />
-        高度：<el-input v-model="height" placeholder="height" style="width:20%"></el-input>
+        高度：<el-input
+          v-model="height"
+          placeholder="height"
+          style="width: 20%"
+        ></el-input>
         <br />
         <br />
-        数量：<el-input v-model="number" placeholder="number" style="width:20%"></el-input>
+        数量：<el-input
+          v-model="number"
+          placeholder="number"
+          style="width: 20%"
+        ></el-input>
         <br />
         <br />
         <el-button type="primary" @click="editOrderMeasure()">提交</el-button>
@@ -58,23 +39,54 @@
     </div>
 
     <div v-if="designer">
-      <form>
-        材质：<el-input v-model="material" placeholder="material" style="width:20%"></el-input>
+      <form action="" enctype="multipart/form-data" id="upload">
+        材质：<el-input
+          v-model="material"
+          placeholder="material"
+          style="width: 20%"
+        ></el-input>
+        <br />
         <br />
         <br />
 
-        //上传图片待写
+        样板图片：
+        <br />
+        <br />
+        <!-- <el-upload
+  class="upload-demo"
+  ref="upload"
+  :before-upload="beforeUpload"
+  action
+  :limit="1"
+  :on-change="fileChange"
+  :auto-upload="false"
+  :file-list="fileList">
+  <el-button type="primary">点击上传</el-button>
+  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+</el-upload> -->
+        <input type="file" ref="fileId" @change="getFile" /><br />
 
+        <br />
+        <br />
+        <br />
         <el-button type="primary" @click="editOrderDesign()">提交</el-button>
       </form>
     </div>
 
     <div v-if="pricer">
       <form>
-        报价：<el-input v-model="price" placeholder="price" style="width:20%"></el-input>
+        报价：<el-input
+          v-model="price"
+          placeholder="price"
+          style="width: 20%"
+        ></el-input>
         <br />
         <br />
-        <el-button type="primary" @click="editOrderPrice()">提交</el-button>
+        <el-button
+          type="primary"
+          @click="editOrderPrice()"
+          >提交</el-button
+        >
       </form>
     </div>
   </div>
@@ -84,75 +96,43 @@
 import Sidebar from "../components/sidebar";
 import axios from "axios";
 export default {
-  name: "orderinfo",
+  name: "orderprocess",
   data() {
     return {
-      id:0,
       status: "",
       handler: false,
       measurer: false,
       designer: false,
       pricer: false,
-      clientname: "",
-      title:"",
-      description: "",
       length: 0,
       width: 0,
       height: 0,
       number: 0,
       material: "",
       price: 0,
+      id: 0,
+      xlsxFile: "",
+      fileList: [],
+      board_list: [],
       //图片变量待写
     };
   },
   created: function () {
-    axios.get(`/api/client/read/one/${this.id}`).then((response) => {    //接口待修改
+    this.id = this.$route.query.id;
+    axios.get(`/api/order/getStatus/${this.id}`).then((response) => {
       if (response.data.message == "success") {
-        this.status = response.data.data.status;
-        this.id = this.$route.query.id;
+        this.status = response.data.data;
+        console.log(this.status);
+
         //root页面待添加，应开放所有信息编辑权限
-        if (this.status == "handler") {
-          handler = true;
-          axios
-            .get(`/api/order/create/read/one/${this.id}`)
-            .then((response) => {
-              if (response.data.message == "success") {
-                this.clientname = response.data.data.clientname;
-                this.description = response.data.data.description;
-              }
-            });
+        if (this.status == "created") {
+          this.measurer = true;
         }
-        if (this.identity == "measurer") {
-          measurer = true;
-          axios
-            .get(`/api/order/measure/read/one/${this.id}`)
-            .then((response) => {
-              if (response.data.message == "success") {
-                this.length = response.data.data.length;
-                this.width = response.data.data.width;
-                this.height = response.data.data.height;
-                this.number = response.data.data.number;
-              }
-            });
+        if (this.status == "measured") {
+          this.designer = true;
         }
-        if (this.identity == "designer") {
-          designer = true;
-          axios
-            .get(`/api/order/design/read/one/${this.id}`)
-            .then((response) => {
-              if (response.data.message == "success") {
-                this.material = response.data.data.material;
-                //上传图片待写
-              }
-            });
-        }
-        if (this.identity == "pricer") {
-          pricer = true;
-          axios.get(`/api/order/price/read/one/${this.id}`).then((response) => {
-            if (response.data.message == "success") {
-              this.price = response.data.data.price;
-            }
-          });
+        if (this.status == "designed") {
+          this.pricer = true;
         }
       }
     });
@@ -161,21 +141,6 @@ export default {
   methods: {
     selectClass(event) {
       this.clientname = event.target.value;
-    },
-
-    editOrderCreate() {
-      let fd = new FormData();
-      fd.append("clientname", this.clientname);
-      fd.append("description", this.description);
-      axios.post(`/api/order/create/update/${this.id}`, fd).then((response) => {
-        if (response.data.message == "success") {
-          this.$router.push("/order");
-          this.$message({
-            type: "success",
-            message: "修改成功!",
-          });
-        }
-      });
     },
 
     editOrderMeasure() {
@@ -191,22 +156,58 @@ export default {
             this.$router.push("/order");
             this.$message({
               type: "success",
-              message: "修改成功!",
+              message: "提交成功!",
             });
           }
+        })
+        .catch(() => {
+          this.$message({
+            type: "error",
+            message: "输入的数据格式错误，请重试！",
+          });
         });
     },
 
+    //  async fileChange(file) {
+    //       console.log("fileChange", file);
+    //       let formData = new FormData();
+    //     //    注意需要上传的是file.raw这个真实文件
+    //       formData.append("file", file.raw);
+    //     //    设置上传数据类型
+    //       let configs = {
+    //         headers: { "Content-Type": "multipart/form-data" }
+    //       };
+    //       this.board_list = await axios.post(`/api/order/design/update/${this.id}`, formData, configs);
+    //       this.$refs["upload"].clearFiles();
+    //       console.log(this.board_list);
+    //     },
+
+    getFile() {
+      //获取file内容
+      let files = this.$refs.fileId.files[0];
+      this.xlsxFile = files;
+    },
+
     editOrderDesign() {
+              if (this.xlsxFile == "") {
+        this.$message.error('请先添加文件');
+        return;
+      }
       let fd = new FormData();
+
       fd.append("material", this.material);
-      //上传图片待写
+      //     this.form.files = this.fileList[0].url;
+      //   console.log(this.fileList[0].url);
+
+      //     fd.append("image",this.form.files);
+fd.append("image", this.xlsxFile);
+      // //上传图片待写
       axios.post(`/api/order/design/update/${this.id}`, fd).then((response) => {
         if (response.data.message == "success") {
           this.$router.push("/order");
           this.$message({
             type: "success",
-            message: "修改成功!",
+            message: "提交成功!",
           });
         }
       });
@@ -220,7 +221,7 @@ export default {
           this.$router.push("/order");
           this.$message({
             type: "success",
-            message: "修改成功!",
+            message: "提交成功!",
           });
         }
       });

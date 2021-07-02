@@ -28,8 +28,6 @@ public class ADOrderController {
     @Autowired
     ClientRepository clientRepository;
 
-    private String folderPath = "D:\\Undergraduate\\Order-Management-System\\BackEnd\\src\\main\\resources\\static\\images\\";
-
     @PostMapping("/create/add")
     public ReturnValue createAdd(@RequestParam("clientname") String clientname,
                                       @RequestParam("title") String title,
