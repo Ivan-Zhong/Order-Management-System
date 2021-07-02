@@ -9,6 +9,7 @@ public class ADOrder {
     private int id;
     private int clientid;
     private String clientname;
+    private String title;
     private String description;
     @Column(nullable = true)
     private int length;
@@ -49,6 +50,14 @@ public class ADOrder {
 
     public void setClientname(String clientname) {
         this.clientname = clientname;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {

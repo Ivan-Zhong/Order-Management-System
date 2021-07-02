@@ -52,6 +52,7 @@ create table order(
 	id int primary key not null auto_increment,
     clientid int,
     clientname varchar(20),
+    title varchar(30),
     description varchar(200),
     length int,
     width int,

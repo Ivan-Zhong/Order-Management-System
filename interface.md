@@ -369,13 +369,13 @@ message为"success"或者"failure"。前端接收到success表示删除成功，
 
 ## Order
 
-/api/order/create/add
+/api/order/create/add                           post
 
-/api/order/create/read/one/{id}
+/api/order/create/read/one/{id}          get
 
-/api/order/create/read/all
+/api/order/create/read/all                    get
 
-/api/order/create/update/{id}
+/api/order/create/update/{id}             post
 
 /api/order/measure/read/one/{id}
 
@@ -419,15 +419,19 @@ message为"success"或者"failure"。前端接收到success表示删除成功，
 
 /api/order/finish/update/{id}
 
+/api/order/root/read/all
+
 /api/order/delete/{id} -- 只有管理员能delete
 
 还有一个图片下载接口：
 
-/api/order/image/download/{imagename}
+/api/order/image/download/{imageposition}
 
 一个图片展示接口：(用于直接通过img标签来展示在浏览器中)（访问静态资源，其实不算接口）
 
-/images/{imagename}
+/images/{imageposition}
+
+/api/order/getStatus/{id}               get
 
 
 
@@ -448,6 +452,7 @@ post
 ```json
 {
 	clientname: string,
+    title: string,
     description: string
 }
 ```
@@ -457,6 +462,8 @@ post
 message为"success"或者"failure"。前端接收到success表示创建成功，否则为失败（原因是客户不存在，这时应该提示请先创建客户）。
 
 后面所有接口除非是没有权限，否则能成功。
+
+仅允许root和handler。
 
 
 
