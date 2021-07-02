@@ -257,8 +257,11 @@ public class ADOrderController {
     }
 
     @GetMapping("/image/download/{imagename}")
-    public void downloadImage(@PathVariable String imagename,
-                              HttpServletResponse response){
+    public ReturnValue downloadImage(@PathVariable String imagename,
+                                     HttpServletResponse response,
+                                     HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        rv.setMessage("success");
         if (imagename.indexOf(".doc")>-1) response.setContentType("application/msword");
         if (imagename.indexOf(".docx")>-1) response.setContentType("application/msword");
         if (imagename.indexOf(".xls")>-1) response.setContentType("application/vnd.ms-excel");
@@ -285,7 +288,10 @@ public class ADOrderController {
         }
         catch(IOException e) {
             e.printStackTrace();
+            rv.setMessage("failure");
+            return rv;
         }
+        return rv;
     }
 
     @GetMapping("/price/read/all")
