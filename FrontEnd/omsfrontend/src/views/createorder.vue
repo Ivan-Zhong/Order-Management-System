@@ -23,6 +23,9 @@
       </el-select>
       <br />
       <br />
+      订单主题：<el-input v-model="title" placeholder="title" style="width:20%"></el-input>
+      <br>
+      <br>
       <br />
       订单描述<br /><br />
       <el-input
@@ -49,6 +52,7 @@ export default {
     return {
       clients: [],
       clientname: "",
+      title:"",
       description: "",
     };
   },
@@ -64,6 +68,7 @@ export default {
     createorder() {
       let fd = new FormData();
       fd.append("description", this.description);
+      fd.append("title", this.title);
       fd.append("clientname", this.clientname);
       axios.post("/api/order/create/add", fd).then((response) => {
         if (response.data.message == "success") {

@@ -71,6 +71,11 @@ const routes = [
     name: 'orderinfo',
     component: () => import('../views/orderinfo.vue')
   },
+  {
+    path: '/orderprocess',
+    name: 'orderprocess',
+    component: () => import('../views/orderprocess.vue')
+  },
 ]
 
 const router = createRouter({

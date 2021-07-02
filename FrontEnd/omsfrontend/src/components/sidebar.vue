@@ -1,7 +1,7 @@
 <template>
     <div class="sidebar">
         <br>
-        <span style="color:rgb(191, 203, 217);font-size: 18px;">订单管理系统</span>
+        <span><router-link :to="{path: '/home'}" style="color:rgb(191, 203, 217);font-size: 18px;font-weight:normal;text-decoration:none;">订单管理系统</router-link></span>
         <br>
         <br>
         <div class="route_item" v-for="route1 in route_list" :key="route1">
