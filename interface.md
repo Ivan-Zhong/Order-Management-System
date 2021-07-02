@@ -389,27 +389,27 @@ message为"success"或者"failure"。前端接收到success表示删除成功，
 
 /api/order/price/update/{id}              post
 
-/api/order/consider/read/all
+/api/order/consider/read/all              get
 
-/api/order/consider/update/accept/{id}
+/api/order/consider/update/accept/{id}      get
 
-/api/order/consider/update/reject/{id}
+/api/order/consider/update/reject/{id}        get
 
-/api/order/produce/read/all
+/api/order/produce/read/all     get
 
-/api/order/produce/update/{id}
+/api/order/produce/update/{id}     get
 
-/api/order/install/read/all
+/api/order/install/read/all     get
 
-/api/order/install/update/{id}
+/api/order/install/update/{id}     get
 
-/api/order/finish/read/all
+/api/order/finish/read/all     get
 
-/api/order/finish/update/{id}
+/api/order/finish/update/{id}     get
 
-/api/order/root/read/all
+/api/order/root/read/all     get
 
-/api/order/delete/{id} -- 只有管理员能delete
+/api/order/delete/{id} -- 只有管理员能delete     get
 
 还有一个图片下载接口：
 

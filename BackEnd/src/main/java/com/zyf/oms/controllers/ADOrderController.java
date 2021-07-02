@@ -331,4 +331,215 @@ public class ADOrderController {
         return rv;
     }
 
+    @GetMapping("/consider/read/all")
+    public ReturnValue considerReadAll(HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!(session.getAttribute("identity").equals("root"))
+                        && !(session.getAttribute("identity").equals("clienter")))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }
+        else{
+            rv.setMessage("success");
+            rv.setData(adorderRepository.findAllByStatus3("priced", "accepted", "rejected"));
+        }
+        return rv;
+    }
+
+    @GetMapping("/consider/update/accept/{id}")
+    public ReturnValue considerAcceptOne(@PathVariable("id") int id,
+                                          HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!(session.getAttribute("identity").equals("root"))
+                        && !(session.getAttribute("identity").equals("clienter")))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }
+        else{
+            // 获得这个id的订单
+            ADOrder adorder = adorderRepository.findById(id).get();
+            adorder.setStatus("accepted");
+            adorderRepository.save(adorder);
+            rv.setMessage("success");
+            rv.setData(null);
+        }
+        return rv;
+    }
+
+    @GetMapping("/consider/update/reject/{id}")
+    public ReturnValue considerRejectOne(@PathVariable("id") int id,
+                                         HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!(session.getAttribute("identity").equals("root"))
+                        && !(session.getAttribute("identity").equals("clienter")))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }
+        else{
+            // 获得这个id的订单
+            ADOrder adorder = adorderRepository.findById(id).get();
+            adorder.setStatus("rejected");
+            adorderRepository.save(adorder);
+            rv.setMessage("success");
+            rv.setData(null);
+        }
+        return rv;
+    }
+
+    @GetMapping("/produce/read/all")
+    public ReturnValue produceReadAll(HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!(session.getAttribute("identity").equals("root"))
+                        && !(session.getAttribute("identity").equals("producer")))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }
+        else{
+            rv.setMessage("success");
+            rv.setData(adorderRepository.findAllByStatus2("accepted", "produced"));
+        }
+        return rv;
+    }
+
+    @GetMapping("/produce/update/{id}")
+    public ReturnValue produceUpdateOne(@PathVariable("id") int id,
+                                         HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!(session.getAttribute("identity").equals("root"))
+                        && !(session.getAttribute("identity").equals("producer")))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }
+        else{
+            // 获得这个id的订单
+            ADOrder adorder = adorderRepository.findById(id).get();
+            adorder.setStatus("produced");
+            adorderRepository.save(adorder);
+            rv.setMessage("success");
+            rv.setData(null);
+        }
+        return rv;
+    }
+
+    @GetMapping("/install/read/all")
+    public ReturnValue installReadAll(HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!(session.getAttribute("identity").equals("root"))
+                        && !(session.getAttribute("identity").equals("installer")))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }
+        else{
+            rv.setMessage("success");
+            rv.setData(adorderRepository.findAllByStatus2("produced", "installed"));
+        }
+        return rv;
+    }
+
+    @GetMapping("/install/update/{id}")
+    public ReturnValue installUpdateOne(@PathVariable("id") int id,
+                                        HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!(session.getAttribute("identity").equals("root"))
+                        && !(session.getAttribute("identity").equals("installer")))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }
+        else{
+            // 获得这个id的订单
+            ADOrder adorder = adorderRepository.findById(id).get();
+            adorder.setStatus("installed");
+            adorderRepository.save(adorder);
+            rv.setMessage("success");
+            rv.setData(null);
+        }
+        return rv;
+    }
+
+    @GetMapping("/finish/read/all")
+    public ReturnValue finishReadAll(HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!(session.getAttribute("identity").equals("root"))
+                        && !(session.getAttribute("identity").equals("finisher")))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }
+        else{
+            rv.setMessage("success");
+            rv.setData(adorderRepository.findAllByStatus3("installed", "rejected", "finished"));
+        }
+        return rv;
+    }
+
+    @GetMapping("/finish/update/{id}")
+    public ReturnValue finishUpdateOne(@PathVariable("id") int id,
+                                        HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!(session.getAttribute("identity").equals("root"))
+                        && !(session.getAttribute("identity").equals("finisher")))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }
+        else{
+            // 获得这个id的订单
+            ADOrder adorder = adorderRepository.findById(id).get();
+            adorder.setStatus("finished");
+            adorderRepository.save(adorder);
+            rv.setMessage("success");
+            rv.setData(null);
+        }
+        return rv;
+    }
+
+    @GetMapping("/root/read/all")
+    public ReturnValue rootReadAll(HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!session.getAttribute("identity").equals("root"))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }
+        else{
+            rv.setMessage("success");
+            rv.setData(adorderRepository.findAll());
+        }
+        return rv;
+    }
+
+    @GetMapping("/delete/{id}")
+    public ReturnValue rootDeleteOne(@PathVariable("id") int id,
+                                     HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!session.getAttribute("identity").equals("root"))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }else{
+            rv.setMessage("success");
+            adorderRepository.deleteById(id);
+            rv.setData(null);
+        }
+        return rv;
+    }
+
 }
