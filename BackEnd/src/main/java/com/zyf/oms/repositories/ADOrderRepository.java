@@ -16,4 +16,10 @@ public interface ADOrderRepository extends JpaRepository<ADOrder, Integer> {
 
     @Query(value = "select * from adorder where status = ?1", nativeQuery = true)
     public List<ADOrder> findAllByStatus(String status);
+
+    @Query(value = "select * from adorder where status = ?1 or status = ?2", nativeQuery = true)
+    public List<ADOrder> findAllByStatus2(String status1, String status2);
+
+    @Query(value = "select * from adorder where status = ?1 or status = ?2 or status = ?3", nativeQuery = true)
+    public List<ADOrder> findAllByStatus3(String status1, String status2, String status3);
 }
