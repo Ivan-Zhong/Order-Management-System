@@ -289,4 +289,46 @@ public class ADOrderController {
             e.printStackTrace();
         }
     }
+
+    @GetMapping("/price/read/all")
+    public ReturnValue priceReadAll(HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!(session.getAttribute("identity").equals("root"))
+                        && !(session.getAttribute("identity").equals("pricer")))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }
+        else{
+            rv.setMessage("success");
+            rv.setData(adorderRepository.findAllByStatus2("designed", "priced"));
+        }
+        return rv;
+    }
+
+    @PostMapping("/price/update/{id}")
+    public ReturnValue priceUpdateOne(@PathVariable("id") int id,
+                                        @RequestParam("price") int price,
+                                        HttpServletRequest request){
+        ReturnValue rv = new ReturnValue();
+        HttpSession session = request.getSession(false);
+        if(session == null ||
+                (!(session.getAttribute("identity").equals("root"))
+                        && !(session.getAttribute("identity").equals("pricer")))){
+            rv.setMessage("failure");
+            rv.setData(null);
+        }
+        else{
+            // 获得这个id的订单
+            ADOrder adorder = adorderRepository.findById(id).get();
+            adorder.setPrice(price);
+            adorder.setStatus("priced");
+            adorderRepository.save(adorder);
+            rv.setMessage("success");
+            rv.setData(null);
+        }
+        return rv;
+    }
+
 }

@@ -385,9 +385,9 @@ message为"success"或者"failure"。前端接收到success表示删除成功，
 
 /api/order/design/update/{id}           post
 
-/api/order/price/read/all
+/api/order/price/read/all                     get
 
-/api/order/price/update/{id}
+/api/order/price/update/{id}              post
 
 /api/order/consider/read/all
 
@@ -476,6 +476,12 @@ message为"success"或者"failure"。前端接收到success表示创建成功，
     image multipartfile
 
 
+
+### price
+
+参数应为
+
+    price int
 
 
 
