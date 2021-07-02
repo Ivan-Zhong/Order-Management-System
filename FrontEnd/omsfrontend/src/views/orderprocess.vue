@@ -65,7 +65,7 @@
   <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
 </el-upload> -->
 <a class="filebutton">
-        提交图片
+        选择文件
         <input id="fileElem" type="file" ref="fileId" @change="getFile" />
         <!-- <button @click="this.$refs.fileId.click()">Pick File</button> -->
 </a>

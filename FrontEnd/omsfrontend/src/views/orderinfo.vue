@@ -99,7 +99,10 @@
 <br />
 <!-- <el-button type="primary" @click="dialogVisible = true">修改图片</el-button> -->
 修改图片：
-        <input type="file" ref="fileId" @change="getFile" style=""/><br />
+<div class="filebutton">
+选择文件
+        <input type="file" id="fileElem"  ref="fileId" @change="getFile" style=""/><br />
+</div>
 <!-- <el-upload
   class="upload-demo"
   ref="fileId"
@@ -321,6 +324,33 @@ export default {
 </script>
 
 <style>
-
-
+ .filebutton{
+        width:80px;
+        height:40px;
+        overflow:hidden;
+        display:inline-block;
+        text-decoration:none;
+        position:relative;
+        background:#409EFF;
+        border-radius: 5px;
+        line-height: 40px;
+        color:white !important;
+        font-weight: normal !important;
+        font-size : 14px;
+    }
+    #fileElem{
+        position:absolute;
+        top:0;
+        right:0;        
+        background:none;
+        margin:0;
+        padding:0;
+        cursor:pointer;
+        width:700px;
+        height:200px;
+        font-size:60px;/*这个设置很重要*/
+        filter:alpha(opacity=0);/*把上传控件的透明度设为0*/
+        -moz-opacity:0;
+        opacity:0;
+    }
 </style> 

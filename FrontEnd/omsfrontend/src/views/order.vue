@@ -71,7 +71,7 @@
               <br />
               <br />
               <el-form-item label="样板图片">
-                <span>
+                <span v-if="scope.row.imagename!=null">
                   <img
                     :src="'/images/' +  scope.row.imagename "
                     style="height: 500px"
