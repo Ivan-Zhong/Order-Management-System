@@ -60,7 +60,7 @@ create table order(
     number int,
     material varchar(20),
     price int,
-    imageposition varchar(20),
+    imagename varchar(20),
     status varchar(20)
 );
 ```

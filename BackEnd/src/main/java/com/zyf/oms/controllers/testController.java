@@ -1,16 +1,18 @@
 package com.zyf.oms.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.zyf.oms.entities.ADOrder;
+import com.zyf.oms.entities.ReturnValue;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/api/test")
@@ -24,7 +26,8 @@ public class testController {
 
     @GetMapping("/testCreateFile")
     public void testCreateFile(){
-        File file = new File(folderPath);
+        //File file = new File(folderPath);
+        File file = new File(folderPath + "test");
         file.mkdirs();
     }
 
@@ -59,4 +62,17 @@ public class testController {
             e.printStackTrace();
         }
     }
+
+    @PostMapping("/testFile")
+    public ReturnValue designUpdateOne(@RequestParam("image") MultipartFile designImage) {
+        ReturnValue rv = new ReturnValue();
+        System.out.println(designImage.isEmpty());
+        try {
+            designImage.transferTo(new File("D:\\Undergraduate\\Order-Management-System\\BackEnd\\src\\main\\resources\\static\\images\\" + new Date().getTime() + designImage.getOriginalFilename()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return rv;
+    }
+
 }

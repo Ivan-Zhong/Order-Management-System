@@ -377,13 +377,13 @@ message为"success"或者"failure"。前端接收到success表示删除成功，
 
 /api/order/create/update/{id}             post
 
-/api/order/measure/read/all
+/api/order/measure/read/all               get
 
-/api/order/measure/update/{id}
+/api/order/measure/update/{id}        post
 
-/api/order/design/read/all
+/api/order/design/read/all                  get
 
-/api/order/design/update/{id}
+/api/order/design/update/{id}           post
 
 /api/order/price/read/all
 
@@ -391,7 +391,9 @@ message为"success"或者"failure"。前端接收到success表示删除成功，
 
 /api/order/consider/read/all
 
-/api/order/consider/update/{id}
+/api/order/consider/update/accept/{id}
+
+/api/order/consider/update/reject/{id}
 
 /api/order/produce/read/all
 
@@ -411,11 +413,11 @@ message为"success"或者"failure"。前端接收到success表示删除成功，
 
 还有一个图片下载接口：
 
-/api/order/image/download/{imageposition}
+/api/order/image/download/{imagename}    get
 
 一个图片展示接口：(用于直接通过img标签来展示在浏览器中)（访问静态资源，其实不算接口）
 
-/images/{imageposition}
+/images/{imagename}                   可以用
 
 /api/order/getStatus/{id}               get
 
@@ -452,6 +454,26 @@ message为"success"或者"failure"。前端接收到success表示创建成功，
 仅允许root和handler。
 
 
+
+### measure
+
+参数应为
+
+    length int,
+    width int,
+    height int,
+    number int,
+
+
+
+
+
+### design
+
+参数应为
+
+    material string,
+    image multipartfile
 
 
 
