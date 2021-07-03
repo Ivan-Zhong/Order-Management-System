@@ -1,5 +1,13 @@
 # Order-Management-System
 
+**1951247** **钟伊凡**
+
+**1851785** **唐骏龙**
+
+**1952735** **游康**
+
+
+
 ## 项目概述
 
 该项目实现了一个广告牌公司订单管理系统的网站实现。该网站能实现人员客户信息的管理以及整个订单的业务流程。
@@ -44,6 +52,46 @@
 - 人员管理模块
 - 客户管理模块
 - 订单管理模块
+
+
+
+## 项目运行方法
+
+### 前端
+
+```
+npm install
+npm run serve
+```
+
+### 后端
+
+使用IntelliJ IDEA编译运行，可能需要配置maven。
+
+### 数据库
+
+可以修改application.properties里的信息，连接自己本地的MySQL数据库。
+
+### 反向代理
+
+我们使用了nginx反向代理来解决跨域问题，具体配置如下：
+
+```
+server{
+    listen 2048;
+    location /api{
+    	proxy_pass http://localhost:54321/api;
+    }
+    location /images{
+    	proxy_pass http://localhost:54321/images;
+    }
+    location /{
+    	proxy_pass http://localhost:8080;
+    }
+}
+```
+
+运行nginx，然后就可以在2048端口上访问项目网站了。
 
 
 
