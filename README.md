@@ -207,16 +207,29 @@ root用户：
 **3. 订单状态：**
 ![image](https://user-images.githubusercontent.com/74498528/124268568-42e22580-db6c-11eb-8624-4a5598a1192c.png)
 
-**4. 订单的添加、删除：**
+**4. 订单的主界面**
+
+![image](https://user-images.githubusercontent.com/74498528/124337657-54f8ae00-dbd6-11eb-80aa-62392901f757.png)
+
+**5. 订单的添加、删除：**
 - 与人员的添加，删除一致，只是填写的信息不同
 
-**5. 订单的查看，修改：**
+- 界面如下
+![image](https://user-images.githubusercontent.com/74498528/124337673-6772e780-dbd6-11eb-93ac-cec385e3cd5e.png)
+![image](https://user-images.githubusercontent.com/74498528/124337676-693cab00-dbd6-11eb-987f-c912811fc6ba.png)
+
+**6. 订单的查看，修改：**
 - 实现思路：
   - 由于订单的处理是一整个流程，每一个流程中只有一个身份的用户修改该订单信息的一部分内容，因此将订单的处理流程与用户的身份对应。
   - 当某一身份的用户登录时，如果有订单处于的流程与该用户的身份一致，则该用户可以查看此订单中自己可修改的信息。
   - 第一次填写信息点击提交之后，若该订单会进入到下一个状态，如果下一个状态的用户没有提交该订单的信息，则该用户依旧可以查看并且修改自己可以修改的订单内容。流程图如右图：
-
 ![image](https://user-images.githubusercontent.com/74498528/124268806-9a809100-db6c-11eb-9c66-245ca7f9e551.png)
+
+- 界面如下：
+![image](https://user-images.githubusercontent.com/74498528/124337692-7f4a6b80-dbd6-11eb-9240-72a9b57037dc.png)
+![image](https://user-images.githubusercontent.com/74498528/124337694-81acc580-dbd6-11eb-83dc-ad1bed8f0228.png)
+
+
 
 - 每当用户进入该模块时，在组件渲染前向后端请求数据并发送当前人员的身份，后端会将可以查看修改状态的订单信息发送过来，然后在页面上展示
 
